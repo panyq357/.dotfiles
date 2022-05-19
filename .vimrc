@@ -27,8 +27,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 Plug 'preservim/nerdtree'
 Plug 'mechatroner/rainbow_csv'
-"Plug 'jpalardy/vim-slime'
-Plug 'gruvbox-community/gruvbox'
+Plug 'morhetz/gruvbox'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 
 " Initialize plugin system
