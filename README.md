@@ -36,3 +36,19 @@ Finally, run this command.
 dotfiles backup
 ```
 
+### Sync to remote server
+
+First, backup dotfiles.
+
+Then, source some functions.
+
+```zsh
+source ~/.dotfiles/source_me.sh
+```
+
+Finnaly, run this command.
+
+```zsh
+dotfiles remote_sync MY_REMOTE_IP
+```
+

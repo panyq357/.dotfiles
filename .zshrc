@@ -56,13 +56,10 @@ compdef _proxy proxy
 
 # Weather.
 alias weather="curl https://wttr.in/Beijing"
-
 # Make tree command print chinese character, and use colors.
 alias tree="tree -NC"
-
 # autojump
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
-
 # ls and ll
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
@@ -70,14 +67,14 @@ alias ll="ls -lh --color=auto"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$("${HOME}/miniforge3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/panyq/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "${HOME}/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "${HOME}/miniforge3/etc/profile.d/conda.sh"
+    if [ -f "/Users/panyq/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/Users/panyq/miniforge3/etc/profile.d/conda.sh"
     else
-        export PATH="${HOME}/miniforge3/bin:$PATH"
+        export PATH="/Users/panyq/miniforge3/bin:$PATH"
     fi
 fi
 unset __conda_setup

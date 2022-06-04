@@ -22,23 +22,33 @@ function dotfiles() {
 
         cd ~/.dotfiles
 
-        # recover from remote reposiory
-        git pull
-
         # update dotfile list
         source ~/.dotfiles/dotfile_list.sh
 
         # cp all dot files from ~/.dotfiles to ~/
-        rsync -av --delete ${DOTFILES[@]} ~/
+        rsync -Pavz --delete ${DOTFILES[@]} ~/
 
         cd -
+
+    elif [[ $1 == "remote_sync" ]] ; then
+
+        cd ~/.dotfiles
+
+        # update dotfile list
+        source ~/.dotfiles/dotfile_list.sh
+
+        # cp all dot files from ~/.dotfiles to a remove server
+        rsync -Pavz --delete ${DOTFILES[@]} ${2}:
+
+        cd -
+
     fi
 }
 
 # zsh autocompletion
 if [[ $SHELL == "/bin/zsh" ]] ; then
     function _dotfiles() {
-        compadd backup recover
+        compadd backup recover remote_sync
     }
     compdef _dotfiles dotfiles
 fi

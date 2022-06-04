@@ -1,6 +1,5 @@
 DOTFILES=(
     .vimrc
-    .condarc
     .Rprofile
     .tmux.conf
 )
