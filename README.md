@@ -20,6 +20,9 @@ Finally, run this command.
 dotfiles recover
 ```
 
+All dotfiles will be copied from `~/.dotfiles` to home directory.
+
+
 ### Backup
 
 First, add dotfile name to `~/.dotfiles/dotfile_list.sh`.
@@ -36,6 +39,25 @@ Finally, run this command.
 dotfiles backup
 ```
 
+All dotfiles will be copied from home directory to `~/.dotfiles`.
+
+
+### Upload
+
+First, source some functions.
+
+```zsh
+source ~/.dotfiles/source_me.sh
+```
+
+Then, run this command.
+
+```zsh
+dotfiles upload "commit message"
+```
+
+All dotfiles in `~/.dotfiles` will be committed and pushed to this repository.
+
 ### Sync to remote server
 
 First, backup dotfiles.
@@ -51,4 +73,6 @@ Finnaly, run this command.
 ```zsh
 dotfiles remote_sync MY_REMOTE_IP
 ```
+
+All dotfiles will be copied from `~/.dotfiles` to remote server home directory.
 

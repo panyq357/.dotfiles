@@ -29,6 +29,7 @@ Plug 'preservim/nerdtree'
 Plug 'mechatroner/rainbow_csv'
 Plug 'morhetz/gruvbox'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+Plug 'luochen1990/rainbow'
 
 " Initialize plugin system
 call plug#end()
@@ -52,3 +53,5 @@ imap <leader>m %>%
 " vim-oscyank
 vnoremap <leader>c :OSCYank<CR>
 
+" raibow parentheses
+let g:rainbow_active = 1
