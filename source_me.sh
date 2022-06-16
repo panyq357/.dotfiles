@@ -7,7 +7,7 @@ function dotfiles() {
         # cp all dot files from ~/ to ~/.dotfiles
         rsync -av --delete ${DOTFILES[@]/./~\/.} ~/.dotfiles
         
-    elif [[ $1 == "upload" ]] ; then
+    elif [[ $1 == "push" ]] ; then
 
         # use git to backup to remote repository
         cd ~/.dotfiles
@@ -50,7 +50,7 @@ function dotfiles() {
 # zsh autocompletion
 if [[ $SHELL == "/bin/zsh" ]] ; then
     function _dotfiles() {
-        compadd backup upload recover remote_sync
+        compadd backup push recover remote_sync
     }
     compdef _dotfiles dotfiles
 fi

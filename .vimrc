@@ -10,13 +10,12 @@ set nofoldenable
 set nowrap
 " Line number
 set number
-" recursive search path
-set path+=**
 " Simplify movement among windows
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+
 
 " Set leader key
 let mapleader=","
@@ -33,6 +32,16 @@ Plug 'luochen1990/rainbow'
 
 " Initialize plugin system
 call plug#end()
+" call plug#end() will automatically execute these:
+" filetype plugin indent on
+" syntax enable
+" So to overwrite this behavior, commands must be added below call plug#end()
+
+" Disable filetype based auto indentation
+filetype indent off
+
+" Keep indentation of new line the same as previous line
+set autoindent
 
 " NERDTree
 let NERDTreeMinimalUI=1
@@ -52,6 +61,8 @@ imap <leader>m %>%
 
 " vim-oscyank
 vnoremap <leader>c :OSCYank<CR>
+let g:oscyank_term = 'default'
 
 " raibow parentheses
 let g:rainbow_active = 1
+
