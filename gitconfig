@@ -1,0 +1,11 @@
+[user]
+	name = panyq357
+	email = panyq357@qq.com
+[core]
+	quotepath = false
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[difftool]
+	prompt = false
