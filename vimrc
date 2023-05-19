@@ -9,6 +9,7 @@ set nofoldenable                                      " Disable code chunk foldi
 set nowrap                                            " Stop vim from wrapping lines that exceed screen border.
 set hidden                                            " Switch buffers before saving.
 set directory=$HOME/.vim/swapfiles//                  " Set swap file dir.
+set backspace=                                        " Don't backspace over last line.
 
 let mapleader=','                                     " Set leader key.
 
@@ -43,7 +44,7 @@ Plug 'mattn/emmet-vim'
 
 " Syntax
 Plug 'vim-python/python-syntax'
-" Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'glench/vim-jinja2-syntax'
 Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 Plug 'chr4/nginx.vim'                              " Nginx syntax highlight.
