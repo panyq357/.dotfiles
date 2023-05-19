@@ -43,7 +43,7 @@ Plug 'mattn/emmet-vim'
 
 " Syntax
 Plug 'vim-python/python-syntax'
-Plug 'Vimjas/vim-python-pep8-indent'
+" Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'glench/vim-jinja2-syntax'
 Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 Plug 'chr4/nginx.vim'                              " Nginx syntax highlight.
@@ -65,10 +65,12 @@ call plug#end()
 filetype indent off  " Turn off filetype based indent (no 'indentexpr' will be setted automatically).
 set autoindent       " Keep indentation of new line the same as previous line.
 
-" HTML and related template languages.
-autocmd Filetype html setlocal ts=2 sw=2
-autocmd Filetype htmldjango setlocal ts=2 sw=2
-autocmd Filetype jinja.html setlocal ts=2 sw=2  " jinja.html was provided by glench/vim-jinja2-syntax plugin.
+" Settings for HTML and related template languages.
+function SetHTMLOptions()
+    setlocal ts=2 sw=2
+    filetype indent on  " Turn on autoindent for 'gg=G' global indentation.
+endfunction
+autocmd Filetype html,htmldjango,jinja.html call SetHTMLOptions()  " jinja.html was provided by glench/vim-jinja2-syntax plugin.
 let g:html_indent_attribute = 1
 
 " After snakemake plugin recognized a snakemake file and setted 'indentexpr', overwrite it.
