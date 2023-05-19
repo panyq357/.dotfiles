@@ -95,7 +95,7 @@ set background=dark
 
 " ---------- vim-oscyank ----------
 " automatically yank to clipbroad
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
+autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankRegister "' | endif
 " make vim-oscyank work in tmux 3.3
 let g:oscyank_term = 'default'
 " -----------------------------
