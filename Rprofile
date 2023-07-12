@@ -1,6 +1,7 @@
 # BFSU mirror
 options(repos=c(CRAN="https://mirrors.bfsu.edu.cn/CRAN/"))
 options(width=150)
+options(menu.graphics=FALSE)
 
 if (Sys.info()['sysname'] == "Darwin") {
     grDevices::quartz.options(width=8, height=6, pointsize=10, reset=FALSE)

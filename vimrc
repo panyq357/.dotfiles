@@ -24,6 +24,7 @@ nnoremap <C-l> <C-w>l
 " if in NERDTree tab, move to the right first, then switch the buffers.
 nnoremap <expr> <C-n> exists("b:NERDTree") ? '<C-w>l:bn<CR>':':bn<CR>'
 nnoremap <expr> <C-p> exists("b:NERDTree") ? '<C-w>l:bp<CR>':':bp<CR>'
+nnoremap <expr> <leader>d exists("b:NERDTree") ? '<C-w>l:BD<CR>':':BD<CR>'
 
 " Prevent comma <C-c> combination lost comma
 inoremap <C-c> <Esc>
@@ -36,8 +37,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 
 Plug 'preservim/nerdtree'
-Plug 'PhilRunninger/nerdtree-buffer-ops'           " Highlight opened buffers.
 Plug 'ap/vim-buftabline'                           " Add buffer tabline on the top.
+Plug 'qpkorr/vim-bufkill'                          " Close buffer without closing window.
 
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'mattn/emmet-vim'
@@ -48,6 +49,7 @@ Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'glench/vim-jinja2-syntax'
 Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 Plug 'chr4/nginx.vim'                              " Nginx syntax highlight.
+Plug 'luochen1990/rainbow'                         " Rainbow parentheses.
 
 " Initialize plugin system
 call plug#end()
@@ -110,3 +112,6 @@ let g:buftabline_indicators = 1
 
 " python-syntax
 let g:python_highlight_all = 1
+
+" rainbow parentheses
+let g:rainbow_active = 1

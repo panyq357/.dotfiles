@@ -20,7 +20,7 @@ symlinks = {
     }
 }
 
-dot_dotfiles = Path(__file__).parent
+dot_dotfiles = Path(__file__).parent.absolute()
 
 
 def main() -> None:

@@ -1,7 +1,7 @@
 channels:
   - conda-forge
   - bioconda
-#  - defaults
+  - defaults
 default_channels:
   - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
   - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
