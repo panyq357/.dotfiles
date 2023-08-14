@@ -11,20 +11,12 @@ set hidden                                            " Switch buffers before sa
 set directory=$HOME/.vim/swapfiles//                  " Set swap file dir.
 set backspace=                                        " Don't backspace over last line.
 
-let mapleader=','                                     " Set leader key.
-
 " ---------- Key Mappings ----------
 " Simplify movement among windows.
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-" Switch buffers.
-" if in NERDTree tab, move to the right first, then switch the buffers.
-nnoremap <expr> <C-n> exists("b:NERDTree") ? '<C-w>l:bn<CR>':':bn<CR>'
-nnoremap <expr> <C-p> exists("b:NERDTree") ? '<C-w>l:bp<CR>':':bp<CR>'
-nnoremap <expr> <leader>d exists("b:NERDTree") ? '<C-w>l:BD<CR>':':BD<CR>'
 
 " Prevent comma <C-c> combination lost comma
 inoremap <C-c> <Esc>
@@ -36,9 +28,9 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
 
-Plug 'preservim/nerdtree'
-Plug 'ap/vim-buftabline'                           " Add buffer tabline on the top.
-Plug 'qpkorr/vim-bufkill'                          " Close buffer without closing window.
+if has("macunix")
+    Plug '/opt/homebrew/opt/fzf'
+endif
 
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'mattn/emmet-vim'
@@ -80,20 +72,11 @@ let g:html_indent_attribute = 1
 autocmd Filetype snakemake set indentexpr=
 " ---------------------------------------
 
-" ---------- NERDTree ----------
-let NERDTreeMinimalUI=1
-nnoremap <leader>e :NERDTreeToggle<CR>
-" let g:NERDTreeMinimalMenu=1
-let g:NERDTreeNodeDelimiter = "\u00a0"   " Change a hidden placeholder to another charactor so it can't be selected by 'viW'.
-let g:NERDTreeRemoveFileCmd = 'trash '
-let g:NERDTreeRemoveDirCmd = 'trash '
-" ------------------------------
-
 " ---------- gruvbox ----------
 set cursorline
 set termguicolors
-colorscheme gruvbox
 set background=dark
+colorscheme gruvbox
 " -----------------------------
 
 " ---------- vim-oscyank ----------
@@ -105,10 +88,6 @@ let g:oscyank_term = 'default'
 
 " Markdown codeblock syntax highlight
 let g:markdown_fenced_languages = ['bash', 'python', 'r']
-
-" vim-buftabline
-let g:buftabline_indicators = 1
-" let g:buftabline_numbers = 1
 
 " python-syntax
 let g:python_highlight_all = 1
