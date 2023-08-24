@@ -6,10 +6,12 @@ set tabstop=4                                         " Show existing tab with 4
 set expandtab                                         " On pressing tab, insert 4 spaces.
 set shiftwidth=4                                      " When indenting with '>', use 4 spaces width.
 set nofoldenable                                      " Disable code chunk folding by default.
-set nowrap                                            " Stop vim from wrapping lines that exceed screen border.
+set wrap                                              " Enable line wrapping. (tips: use 'gk' 'gj' to navigate)
 set hidden                                            " Switch buffers before saving.
-set directory=$HOME/.vim/swapfiles//                  " Set swap file dir.
 set backspace=                                        " Don't backspace over last line.
+
+set directory=${HOME}/.vim/swap//                     " Set swap file dir.
+call mkdir($HOME . "/.vim/swap", "p", 0700)           " Create ~/.vim/swap in case it does not exists.
 
 " ---------- Key Mappings ----------
 " Simplify movement among windows.
@@ -39,7 +41,6 @@ Plug 'mattn/emmet-vim'
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'glench/vim-jinja2-syntax'
-Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 Plug 'chr4/nginx.vim'                              " Nginx syntax highlight.
 Plug 'luochen1990/rainbow'                         " Rainbow parentheses.
 

@@ -1,37 +1,57 @@
-bindkey -e
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-# End of lines configured by zsh-newuser-install
+zstyle :compinstall filename "${HOME}/.zshrc"               #
+autoload -Uz compinit                                       # lines added by compinstall
+compinit                                                    #
 
-# The following lines were added by compinstall
-zstyle :compinstall filename "${HOME}/.zshrc"
-
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
-
+bindkey -e                                                  # use EMACS key binding
 setopt share_history
+
+autoload edit-command-line                                  #
+zle -N edit-command-line                                    # use CTRL-X_CTRL-E to edit command in $EDITOR
+bindkey '^x^e' edit-command-line                            #
+
+export HISTFILE=~/.histfile
+export HISTSIZE=1000
+export SAVEHIST=1000
 
 export TERM="xterm-256color"
 export LANG="en_US.UTF-8"
 export EDITOR="/opt/homebrew/bin/vim"
 
-# Make tree display chinese charactor.
-alias tree="tree -NC" 
-
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
+alias tree="tree -NC"                                       # Make tree display chinese charactor.
+alias tar="tar --no-mac-metadata --exclude '**/.DS_Store'"  # Exclude ._* AppleDouble files and .DS_Store files.
 
-# Exclude ._* AppleDouble files and .DS_Store files.
-alias tar="tar --no-mac-metadata --exclude '**/.DS_Store'"
+# ---------- zplug & plugin management ----------------------------------------
+export ZPLUG_HOME=/opt/homebrew/opt/zplug
+source $ZPLUG_HOME/init.zsh
 
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+zplug load
+# ---------- zplug & plugin management End ------------------------------------
+
+# ---------- Homebrew ---------------------------------------------------------
 if [[ "$PATH" != *"homebrew"* ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
+# ---------- Homebrew End -----------------------------------------------------
 
-# Proxy shortcut function.
+# ---------- PATH -------------------------------------------------------------
+path_arr=(
+    "${HOME}/.local/bin"
+)
+
+for p in ${path_arr[@]} ; do  # lower case "path" is a reserved variable, don't use it.
+    if [[ "$PATH" != *"$path"* ]]; then
+        export PATH="${p}:${PATH}"
+    fi
+done
+
+# ---------- PATH End ---------------------------------------------------------
+
+# ---------- Proxy ------------------------------------------------------------
 PROXY="http://127.0.0.1:1087"
 function proxy() {
     if [[ $1 == "off" ]] ; then
@@ -54,4 +74,5 @@ function _proxy() {
     compadd on off
 }
 compdef _proxy proxy
+# ---------- Proxy End --------------------------------------------------------
 
