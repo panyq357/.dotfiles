@@ -1,3 +1,9 @@
+# ---------- Homebrew ---------------------------------------------------------
+if [[ -e "/opt/homebrew" ]] && [[ *"$PATH"* != *"/opt/homebrew/bin"* ]] ; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+# ---------- Homebrew End -----------------------------------------------------
+
 zstyle :compinstall filename "${HOME}/.zshrc"               #
 autoload -Uz compinit                                       # lines added by compinstall
 compinit                                                    #
@@ -15,7 +21,7 @@ export SAVEHIST=1000
 
 export TERM="xterm-256color"
 export LANG="en_US.UTF-8"
-export EDITOR="/opt/homebrew/bin/vim"
+export EDITOR="/opt/homebrew/bin/vim"                       # use homebrew vim (not /usr/bin/vim)
 
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
@@ -32,15 +38,11 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug load
 # ---------- zplug & plugin management End ------------------------------------
 
-# ---------- Homebrew ---------------------------------------------------------
-if [[ "$PATH" != *"homebrew"* ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-# ---------- Homebrew End -----------------------------------------------------
 
 # ---------- PATH -------------------------------------------------------------
 path_arr=(
     "${HOME}/.local/bin"
+    "${HOME}/Tools/bin"
 )
 
 for p in ${path_arr[@]} ; do  # lower case "path" is a reserved variable, don't use it.
@@ -52,7 +54,7 @@ done
 # ---------- PATH End ---------------------------------------------------------
 
 # ---------- Proxy ------------------------------------------------------------
-PROXY="http://127.0.0.1:1087"
+proxy_url="http://127.0.0.1:1087"
 function proxy() {
     if [[ $1 == "off" ]] ; then
         unset no_proxy
@@ -63,10 +65,10 @@ function proxy() {
         echo -e "PROXY OFF"
     elif [[ $1 == "on" ]] ; then
         export no_proxy="localhost,127.0.0.1"
-        export http_proxy=${PROXY}
-        export https_proxy=${PROXY}
-        export ftp_proxy=${PROXY}
-        export rsync_proxy=${PROXY}
+        export http_proxy=${proxy_url}
+        export https_proxy=${proxy_url}
+        export ftp_proxy=${proxy_url}
+        export rsync_proxy=${proxy_url}
         echo -e "PROXY ON"
     fi
 }
@@ -75,4 +77,8 @@ function _proxy() {
 }
 compdef _proxy proxy
 # ---------- Proxy End --------------------------------------------------------
-
+conda_dir="${HOME}/Tools/miniforge3"
+function ca() {
+    source ${conda_dir}/bin/activate $1
+}
+# ---------- Conda ------------------------------------------------------------
