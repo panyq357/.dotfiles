@@ -2,6 +2,8 @@
 export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
 # ---------- Prompt End -------------------------------------------------------
 
+export EDITOR=vim
+
 # ---------- Alias ------------------------------------------------------------
 alias ls="ls --color=auto"
 alias ll="ls -lh --color"
@@ -15,30 +17,22 @@ alias jl="jupyter lab --port 10000 --no-browser --ip 192.168.31.100"
 path_arr=(
     "${HOME}/.local/bin"
     "${HOME}/Tools/bin"
-    "${HOME}/Tools/bwa"
-    "${HOME}/Tools/bwa/bwakit"
     "${HOME}/Tools/ensembl-vep"
-    "${HOME}/Tools/bowtie2"
-    "${HOME}/Tools/bowtie2/scripts"
-    "${HOME}/Tools/minimap2"
-    "${HOME}/Tools/sratoolkit/bin"
-    "${HOME}/Tools/MCScanX"
-    "${HOME}/Tools/MCScanX/downstream_analyses"
-    "${HOME}/Tools/plink"
+    "${HOME}/Tools/ucsc-tools"
     "${HOME}/Tools/LDBlockShow/bin"
 )
 
-for path in ${path_arr[@]} ; do
-    if [[ "$PATH" != *"$path"* ]]; then
-        export PATH="${path}:${PATH}"
+for p in ${path_arr[@]} ; do  # lower case "path" is a reserved variable, don't use it.
+    if [[ "$PATH" != *"$p"* ]]; then
+        export PATH="${p}:${PATH}"
     fi
 done
 # ---------- PATH End ---------------------------------------------------------
 
 # ---------- Proxy ------------------------------------------------------------
 # Proxy shortcut function.
-HOSTIP=$(ip route | grep default | awk '{print $3}')
-PROXY="http://${HOSTIP}:10809"
+HOSTIP=localhost
+PROXY="http://${HOSTIP}:1087"
 function proxy() {
     if [[ $1 == "off" ]] ; then
         unset no_proxy
@@ -59,38 +53,49 @@ function proxy() {
 # ---------- Proxy End --------------------------------------------------------
 
 # ---------- Conda ------------------------------------------------------------
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/panyq/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/panyq/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/home/panyq/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/panyq/miniforge3/bin:$PATH"
-    fi
+CONDA_DIR=${HOME}/Tools/miniconda3
+if [ -e ${CONDA_DIR} ] ; then
+    function ca() {
+        source ${CONDA_DIR}/bin/activate $1
+    }
 fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 export MAMBA_NO_BANNER=1
 # ---------- Conda End --------------------------------------------------------
 
-# ----------- Perl ------------------------------------------------------------
-PATH="/home/panyq/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/panyq/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/panyq/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/panyq/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/panyq/perl5"; export PERL_MM_OPT;
+# ---------- NNN --------------------------------------------------------------
+n ()
+{
+    # Block nesting of nnn in subshells
+    [ "${NNNLVL:-0}" -eq 0 ] || {
+        echo "nnn is already running"
+        return
+    }
 
-# ----------- Perl End --------------------------------------------------------
+    # The behaviour is set to cd on quit (nnn checks if NNN_TMPFILE is set)
+    # If NNN_TMPFILE is set to a custom path, it must be exported for nnn to
+    # see. To cd on quit only on ^G, remove the "export" and make sure not to
+    # use a custom path, i.e. set NNN_TMPFILE *exactly* as follows:
+    #      NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
 
-# less source highlight
-export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-export LESS=' -R '
+    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+    # stty start undef
+    # stty stop undef
+    # stty lwrap undef
+    # stty lnext undef
 
-export EDITOR="vim"
-export BROWSER='/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'
+    # The command builtin allows one to alias nnn to n, if desired, without
+    # making an infinitely recursive alias
+    command nnn "$@"
+
+    [ ! -f "$NNN_TMPFILE" ] || {
+        . "$NNN_TMPFILE"
+        rm -f "$NNN_TMPFILE" > /dev/null
+    }
+}
+# ---------- NNN End ----------------------------------------------------------
+
+# ---------- Perl -------------------------------------------------------------
+eval "$(perl -I${HOME}/perl5/lib/perl5 -Mlocal::lib)"
+# ---------- Perl End ---------------------------------------------------------
 
