@@ -1,3 +1,4 @@
+" ---------- Options ----------
 set nocompatible                                      " Stop vim from act like vi.
 set number                                            " Show line number on the left.
 set ruler                                             " Show cursor position in status line
@@ -8,10 +9,12 @@ set shiftwidth=4                                      " When pressing '>>', inse
 set nofoldenable                                      " Disable code chunk folding by default.
 set wrap                                              " Enable line wrapping. (tips: use 'gk' 'gj' to navigate)
 set hidden                                            " Switch buffers before saving.
+set is hls                                            " Highlight all search results.
 set backspace=                                        " Don't backspace over last line.
 
 set directory=${HOME}/.vim/swap//                     " Set swap file dir.
 call mkdir($HOME . "/.vim/swap", "p", 0700)           " Create ~/.vim/swap in case it does not exists.
+" -----------------------------
 
 " ---------- Key Mappings ----------
 " Simplify movement among windows.
@@ -40,9 +43,9 @@ Plug 'mattn/emmet-vim'
 " Syntax
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 Plug 'chr4/nginx.vim'
 Plug 'luochen1990/rainbow'  " Rainbow parentheses.
+Plug 'mechatroner/rainbow_csv'
 
 " Initialize plugin system
 call plug#end()
@@ -58,8 +61,9 @@ call plug#end()
 " ------------------------------
 
 " ---------- Indent Settings ----------
-autocmd Filetype html,css,javascript setlocal ts=2 sw=2  " Shrink indent width in web languages.
-let g:html_indent_attribute = 1                          " About indent inside <tag>, see ':help html-indent'.
+autocmd Filetype html,css,javascript,json,yaml setlocal ts=2 sw=2  " Shrink indent width.
+autocmd Filetype yaml setlocal indentexpr=""  " Disable auto indent.
+let g:html_indent_attribute = 1  " About indent inside <tag>, see ':help html-indent'.
 " ---------------------------------------
 
 " ---------- gruvbox ----------
