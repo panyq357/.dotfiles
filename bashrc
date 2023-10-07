@@ -31,7 +31,8 @@ done
 
 # ---------- Proxy ------------------------------------------------------------
 # Proxy shortcut function.
-HOSTIP=localhost
+# For WSL, HOSTIP can't be 127.0.0.1 or localhost, it should be IP in LAN
+HOSTIP=192.168.31.100
 PROXY="http://${HOSTIP}:1087"
 function proxy() {
     if [[ $1 == "off" ]] ; then
@@ -93,6 +94,7 @@ n ()
         rm -f "$NNN_TMPFILE" > /dev/null
     }
 }
+export NNN_PLUG='s:! echo $nnn| xargs realpath |clip.exe*'
 # ---------- NNN End ----------------------------------------------------------
 
 # ---------- Perl -------------------------------------------------------------

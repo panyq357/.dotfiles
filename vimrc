@@ -3,9 +3,6 @@ set nocompatible                                      " Stop vim from act like v
 set number                                            " Show line number on the left.
 set ruler                                             " Show cursor position in status line
 set wildmenu                                          " Display a horizontal menu when doing tab autocomplete.
-set expandtab                                         " When pressing <Tab>, insert 4 spaces instead '\t'.
-set tabstop=4                                         " Press <Tab> insert 4 spaces.
-set shiftwidth=4                                      " When pressing '>>', insert 4 spaces.
 set nofoldenable                                      " Disable code chunk folding by default.
 set wrap                                              " Enable line wrapping. (tips: use 'gk' 'gj' to navigate)
 set hidden                                            " Switch buffers before saving.
@@ -61,9 +58,12 @@ call plug#end()
 " ------------------------------
 
 " ---------- Indent Settings ----------
-autocmd Filetype html,css,javascript,json,yaml setlocal ts=2 sw=2  " Shrink indent width.
-autocmd Filetype yaml setlocal indentexpr=""  " Disable auto indent.
-let g:html_indent_attribute = 1  " About indent inside <tag>, see ':help html-indent'.
+autocmd Filetype *
+    \ setlocal et ts=4 sw=0 sts=0 nocin nosi inde= ai         " Override all other indent settings, keep only autoindent
+
+autocmd Filetype html,css,javascript,json,markdown,yaml 
+    \ setlocal ts=2                                           " Shrink indent width in some languages.
+" let g:html_indent_attribute = 1  " About indent inside <tag>, see ':help html-indent'.
 " ---------------------------------------
 
 " ---------- gruvbox ----------
