@@ -3,6 +3,7 @@ export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\
 # ---------- Prompt End -------------------------------------------------------
 
 export EDITOR=vim
+export BROWSER=msedge
 
 # ---------- Alias ------------------------------------------------------------
 alias ls="ls --color=auto"
@@ -11,15 +12,20 @@ alias grep="grep --color"
 alias cp='cp -i'
 alias mv='mv -i'
 alias jl="jupyter lab --port 10000 --no-browser --ip 192.168.31.100"
+alias ipython="python3 -m IPython"
 # ---------- Alias End --------------------------------------------------------
 
 # ---------- PATH -------------------------------------------------------------
 path_arr=(
     "${HOME}/.local/bin"
     "${HOME}/Tools/bin"
+    "${HOME}/Tools/sratoolkit/bin"
     "${HOME}/Tools/ensembl-vep"
-    "${HOME}/Tools/ucsc-tools"
+    "${HOME}/Tools/annovar"
+    "${HOME}/Tools/meme/bin"
+    "${HOME}/Tools/meme/libexec/meme-5.5.4"
     "${HOME}/Tools/LDBlockShow/bin"
+    "/usr/local/go/bin"
 )
 
 for p in ${path_arr[@]} ; do  # lower case "path" is a reserved variable, don't use it.
@@ -54,7 +60,7 @@ function proxy() {
 # ---------- Proxy End --------------------------------------------------------
 
 # ---------- Conda ------------------------------------------------------------
-CONDA_DIR=${HOME}/Tools/miniconda3
+CONDA_DIR=${HOME}/Tools/miniforge3
 if [ -e ${CONDA_DIR} ] ; then
     function ca() {
         source ${CONDA_DIR}/bin/activate $1
@@ -95,9 +101,19 @@ n ()
     }
 }
 export NNN_PLUG='s:! echo $nnn| xargs realpath |clip.exe*'
+export NNN_TRASH=1
 # ---------- NNN End ----------------------------------------------------------
 
 # ---------- Perl -------------------------------------------------------------
 eval "$(perl -I${HOME}/perl5/lib/perl5 -Mlocal::lib)"
 # ---------- Perl End ---------------------------------------------------------
 
+# ---------- FZF --------------------------------------------------------------
+ff () {
+    find $1 | fzf
+}
+# ---------- FZF End ----------------------------------------------------------
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

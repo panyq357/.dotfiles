@@ -8,6 +8,7 @@ set wrap                                              " Enable line wrapping. (t
 set hidden                                            " Switch buffers before saving.
 set is hls                                            " Highlight all search results.
 set backspace=                                        " Don't backspace over last line.
+set shiftround                                        " Round indent to multiple of 'shiftwidth'.
 
 set directory=${HOME}/.vim/swap//                     " Set swap file dir.
 call mkdir($HOME . "/.vim/swap", "p", 0700)           " Create ~/.vim/swap in case it does not exists.
@@ -28,21 +29,24 @@ inoremap <C-c> <Esc>
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'mcchrish/nnn.vim'
+
 Plug 'morhetz/gruvbox'
-
-if has("macunix")
-    Plug '/opt/homebrew/opt/fzf'
-endif
-
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-surround'
 
 " Syntax
 Plug 'vim-python/python-syntax'
-Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'chr4/nginx.vim'
+Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 Plug 'luochen1990/rainbow'  " Rainbow parentheses.
 Plug 'mechatroner/rainbow_csv'
+
+" LSP
+Plug 'prabirshrestha/vim-lsp'
 
 " Initialize plugin system
 call plug#end()
@@ -58,12 +62,12 @@ call plug#end()
 " ------------------------------
 
 " ---------- Indent Settings ----------
+set et ts=4 sw=0 sts=0 nocin nosi inde= ai                    " Default settings.
 autocmd Filetype *
-    \ setlocal et ts=4 sw=0 sts=0 nocin nosi inde= ai         " Override all other indent settings, keep only autoindent
-
+    \ setlocal et ts=4 sw=0 sts=0 nocin nosi inde= ai         " Override all other indent settings, keep only autoindent.
 autocmd Filetype html,css,javascript,json,markdown,yaml 
     \ setlocal ts=2                                           " Shrink indent width in some languages.
-" let g:html_indent_attribute = 1  " About indent inside <tag>, see ':help html-indent'.
+autocmd FileType make set noet                                " Use TAB in makefile.
 " ---------------------------------------
 
 " ---------- gruvbox ----------
@@ -87,3 +91,45 @@ let g:python_highlight_all = 1
 " rainbow parentheses
 let g:rainbow_active = 1
 
+" ---------- Relative Path Settings ----------
+" function AddCurrentFileDirToPath()
+"     let $cfd = expand("%s:h")
+"     setlocal path+=$cfd
+" endfunction
+" autocmd BufEnter Snakefile,*.smk call AddCurrentFileDirToPath()
+" --------------------------------------------
+
+" ---------- LSP ----------
+if executable('pylsp')
+    " pip install python-lsp-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pylsp',
+        \ 'cmd': {server_info->['pylsp']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+if isdirectory($HOME . glob('/R/*/*/languageserver'))
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'languageserver',
+        \ 'cmd': ['/usr/bin/R', "--slave", "-e", "languageserver::run()"],
+        \ 'allowlist': ['r'],
+        \ })
+endif
+
+let g:lsp_signature_help_enabled = 0
+let g:lsp_completion_documentation_enabled = 0
+let g:lsp_diagnostics_enabled = 0
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+" -------------------------
