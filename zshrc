@@ -1,6 +1,7 @@
 # ---------- Homebrew ---------------------------------------------------------
-if [[ -e "/opt/homebrew" ]] && [[ *"$PATH"* != *"/opt/homebrew/bin"* ]] ; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+HOMEBREW_REPOSITORY="/usr/local/Homebrew"
+if [[ -e $HOMEBREW_REPOSITORY ]] && [[ *"$PATH"* != *"${HOMEBREW_REPOSITORY}/bin"* ]] ; then
+    eval "$(${HOMEBREW_REPOSITORY}/bin/brew shellenv)"
 fi
 # ---------- Homebrew End -----------------------------------------------------
 
@@ -21,7 +22,7 @@ export SAVEHIST=1000
 
 export TERM="xterm-256color"
 export LANG="en_US.UTF-8"
-export EDITOR="/opt/homebrew/bin/vim"                       # use homebrew vim (not /usr/bin/vim)
+export EDITOR="${HOMEBREW_PREFIX}/bin/vim"                       # use homebrew vim (not /usr/bin/vim)
 
 alias ls="ls --color=auto"
 alias ll="ls -lh --color=auto"
@@ -29,7 +30,7 @@ alias tree="tree -NC"                                       # Make tree display 
 alias tar="tar --no-mac-metadata --exclude '**/.DS_Store'"  # Exclude ._* AppleDouble files and .DS_Store files.
 
 # ---------- zplug & plugin management ----------------------------------------
-export ZPLUG_HOME=/opt/homebrew/opt/zplug
+export ZPLUG_HOME=${HOMEBREW_PREFIX}/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 zplug "zsh-users/zsh-autosuggestions"
@@ -43,6 +44,8 @@ zplug load
 path_arr=(
     "${HOME}/.local/bin"
     "${HOME}/Tools/bin"
+    "${HOMEBREW_PREFIX}/opt/ruby/bin"
+    "${HOMEBREW_PREFIX}/lib/ruby/gems/3.3.0/bin"
 )
 
 for p in ${path_arr[@]} ; do  # lower case "path" is a reserved variable, don't use it.
@@ -52,6 +55,11 @@ for p in ${path_arr[@]} ; do  # lower case "path" is a reserved variable, don't 
 done
 
 # ---------- PATH End ---------------------------------------------------------
+
+# ---------- Ruby -------------------------------------------------------------
+export LDFLAGS="-L${HOMEBREW_PREFIX}/opt/ruby/lib"
+export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/ruby/include"
+# ---------- Ruby End ---------------------------------------------------------
 
 # ---------- Proxy ------------------------------------------------------------
 proxy_url="http://127.0.0.1:1087"
