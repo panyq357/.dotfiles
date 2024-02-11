@@ -2,13 +2,16 @@
 set nocompatible                                      " Stop vim from act like vi.
 set number                                            " Show line number on the left.
 set ruler                                             " Show cursor position in status line
-set wildmenu                                          " Display a horizontal menu when doing tab autocomplete.
 set nofoldenable                                      " Disable code chunk folding by default.
 set wrap                                              " Enable line wrapping. (tips: use 'gk' 'gj' to navigate)
 set hidden                                            " Switch buffers before saving.
 set is hls                                            " Highlight all search results.
 set backspace=                                        " Don't backspace over last line.
 set shiftround                                        " Round indent to multiple of 'shiftwidth'.
+
+set wildmenu                                          " Display a menu when doing tab autocomplete in command mode.
+set wildmode=longest:full,full                        " Extend to longest common string, show matches, press <TAB> again to do more completion.
+set wildoptions=pum                                   " Display vertical menu.
 
 set directory=${HOME}/.vim/swap//                     " Set swap file dir.
 call mkdir($HOME . "/.vim/swap", "p", 0700)           " Create ~/.vim/swap in case it does not exists.
@@ -23,20 +26,19 @@ nnoremap <C-l> <C-w>l
 
 " Prevent comma <C-c> combination lost comma
 inoremap <C-c> <Esc>
+
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
 " ----------------------------------
 
 " ---------- vim-plug ----------
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'mcchrish/nnn.vim'
-
 Plug 'morhetz/gruvbox'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'mattn/emmet-vim'
-Plug 'tpope/vim-surround'
+Plug 'ap/vim-buftabline'
 
 " Syntax
 Plug 'vim-python/python-syntax'
@@ -65,7 +67,7 @@ call plug#end()
 set et ts=4 sw=0 sts=0 nocin nosi inde= ai                    " Default settings.
 autocmd Filetype *
     \ setlocal et ts=4 sw=0 sts=0 nocin nosi inde= ai         " Override all other indent settings, keep only autoindent.
-autocmd Filetype html,css,javascript,json,markdown,yaml 
+autocmd Filetype html,css,javascript,json,markdown,yaml,ruby
     \ setlocal ts=2                                           " Shrink indent width in some languages.
 autocmd FileType make set noet                                " Use TAB in makefile.
 " ---------------------------------------
@@ -106,14 +108,6 @@ if executable('pylsp')
         \ 'name': 'pylsp',
         \ 'cmd': {server_info->['pylsp']},
         \ 'allowlist': ['python'],
-        \ })
-endif
-
-if isdirectory($HOME . glob('/R/*/*/languageserver'))
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'languageserver',
-        \ 'cmd': ['/usr/bin/R', "--slave", "-e", "languageserver::run()"],
-        \ 'allowlist': ['r'],
         \ })
 endif
 
