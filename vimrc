@@ -23,6 +23,8 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+nnoremap <C-p> :bp<CR>
+nnoremap <C-n> :bn<CR>
 
 " Prevent comma <C-c> combination lost comma
 inoremap <C-c> <Esc>
