@@ -105,7 +105,9 @@ export NNN_TRASH=1
 # ---------- NNN End ----------------------------------------------------------
 
 # ---------- Perl -------------------------------------------------------------
-eval "$(perl -I${HOME}/perl5/lib/perl5 -Mlocal::lib)"
+if [ -f ${HOME}/perl5/lib/perl5 ] ; then
+    eval "$(perl -I${HOME}/perl5/lib/perl5 -Mlocal::lib)"
+fi
 # ---------- Perl End ---------------------------------------------------------
 
 # ---------- FZF --------------------------------------------------------------
@@ -114,6 +116,10 @@ ff () {
 }
 # ---------- FZF End ----------------------------------------------------------
 
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# ---------- pyenv ------------------------------------------------------------
+if [ -f ${HOME}/.pyenv ] ; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
+# ---------- pyenv End --------------------------------------------------------
