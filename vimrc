@@ -15,6 +15,7 @@ set wildoptions=pum                                   " Display vertical menu.
 
 set directory=${HOME}/.vim/swap//                     " Set swap file dir.
 call mkdir($HOME . "/.vim/swap", "p", 0700)           " Create ~/.vim/swap in case it does not exists.
+set list listchars=nbsp:!                             " Show nbsp as !
 " -----------------------------
 
 " ---------- Key Mappings ----------

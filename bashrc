@@ -26,6 +26,7 @@ path_arr=(
     "${HOME}/Tools/meme/libexec/meme-5.5.4"
     "${HOME}/Tools/LDBlockShow/bin"
     "${HOME}/Tools/node/bin"
+    "${HOME}/Tools/tassel"
     "/usr/local/go/bin"
 )
 
