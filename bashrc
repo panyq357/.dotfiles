@@ -102,7 +102,7 @@ n ()
         rm -f "$NNN_TMPFILE" > /dev/null
     }
 }
-export NNN_PLUG='s:! echo $nnn| xargs realpath |clip.exe*'
+export NNN_OPENER=wsl-open
 export NNN_TRASH=1
 # ---------- NNN End ----------------------------------------------------------
 
