@@ -96,6 +96,9 @@ let g:python_highlight_all = 1
 " rainbow parentheses
 let g:rainbow_active = 1
 
+" vim-buftabline
+let g:buftabline_indicators = 1
+
 " ---------- Relative Path Settings ----------
 " function AddCurrentFileDirToPath()
 "     let $cfd = expand("%s:h")
