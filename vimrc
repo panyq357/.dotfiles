@@ -26,6 +26,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <C-p> :bp<CR>
 nnoremap <C-n> :bn<CR>
+nnoremap <C-x> :bd<CR>
 
 " Prevent comma <C-c> combination lost comma
 inoremap <C-c> <Esc>
@@ -42,6 +43,7 @@ Plug 'morhetz/gruvbox'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'mattn/emmet-vim'
 Plug 'ap/vim-buftabline'
+Plug 'kshenoy/vim-signature'
 
 " Syntax
 Plug 'vim-python/python-syntax'
@@ -76,9 +78,16 @@ autocmd FileType make set noet                                " Use TAB in makef
 " ---------------------------------------
 
 " ---------- gruvbox ----------
-set cursorline termguicolors background=dark
+set termguicolors background=dark
+" set cursorline
 colorscheme gruvbox
 " -----------------------------
+
+" ---------- vim-signature ----------
+" Use ':hi Normal' to get default background color
+highlight SignColumn term=underline ctermfg=243 ctermbg=235 guifg=#7c6f64 guibg=#282828
+highlight SignatureMarkText term=underline ctermfg=243 ctermbg=235 guifg=#7c6f64 guibg=#282828
+" -----------------------------------
 
 " ---------- vim-oscyank ----------
 " automatically yank to clipbroad, see ':help event-varaible'.
