@@ -3,6 +3,7 @@ set nocompatible                                      " Stop vim from act like v
 set number                                            " Show line number on the left.
 set ruler                                             " Show cursor position in status line
 set nofoldenable                                      " Disable code chunk folding by default.
+
 set wrap                                              " Enable line wrapping. (tips: use 'gk' 'gj' to navigate)
 set hidden                                            " Switch buffers before saving.
 set is hls                                            " Highlight all search results.
@@ -24,9 +25,12 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-nnoremap <C-p> :bp<CR>
-nnoremap <C-n> :bn<CR>
-nnoremap <C-x> :bd<CR>
+
+" Swapping buffers.
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
 
 " Prevent comma <C-c> combination lost comma
 inoremap <C-c> <Esc>
@@ -44,6 +48,7 @@ Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'mattn/emmet-vim'
 Plug 'ap/vim-buftabline'
 Plug 'kshenoy/vim-signature'
+Plug 'tpope/vim-commentary'
 
 " Syntax
 Plug 'vim-python/python-syntax'
@@ -75,6 +80,7 @@ autocmd Filetype *
 autocmd Filetype html,css,javascript,json,markdown,yaml,ruby
     \ setlocal ts=2                                           " Shrink indent width in some languages.
 autocmd FileType make set noet                                " Use TAB in makefile.
+autocmd FileType snakemake setlocal commentstring=#\ %s       " set commentstring for vim-commentary
 " ---------------------------------------
 
 " ---------- gruvbox ----------
@@ -142,3 +148,4 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 " -------------------------
+

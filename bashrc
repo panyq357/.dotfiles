@@ -13,6 +13,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias jl="jupyter lab --port 10000 --no-browser --ip 192.168.31.100"
 alias ipython="python3 -m IPython"
+alias smnp="snakemake -np --rerun-incomplete"
 # ---------- Alias End --------------------------------------------------------
 
 # ---------- PATH -------------------------------------------------------------
@@ -27,6 +28,7 @@ path_arr=(
     "${HOME}/Tools/LDBlockShow/bin"
     "${HOME}/Tools/node/bin"
     "${HOME}/Tools/tassel"
+    "${HOME}/Tools/SPAdes/bin"
     "/usr/local/go/bin"
 )
 
@@ -95,7 +97,7 @@ n ()
 
     # The command builtin allows one to alias nnn to n, if desired, without
     # making an infinitely recursive alias
-    command nnn "$@"
+    command nnn "$@" -A
 
     [ ! -f "$NNN_TMPFILE" ] || {
         . "$NNN_TMPFILE"
@@ -124,4 +126,14 @@ if [ -d ${HOME}/.pyenv ] ; then
     [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
 fi
+
+# Bind r to radian in pyenv global version.
+alias r="$(pyenv which radian) --restore-data"
 # ---------- pyenv End --------------------------------------------------------
+
+# ---------- rbenv ------------------------------------------------------------
+if [ -d ${HOME}/.rbenv ] ; then
+    eval "$(~/.rbenv/bin/rbenv init - bash)"
+fi
+# ---------- rbenv End --------------------------------------------------------
+
