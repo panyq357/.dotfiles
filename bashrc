@@ -41,8 +41,7 @@ done
 
 # ---------- Proxy ------------------------------------------------------------
 # Proxy shortcut function.
-# For WSL, HOSTIP can't be 127.0.0.1 or localhost, it should be IP in LAN
-HOSTIP=192.168.31.100
+HOSTIP=127.0.0.1
 PROXY="http://${HOSTIP}:1087"
 function proxy() {
     if [[ $1 == "off" ]] ; then
@@ -137,3 +136,14 @@ if [ -d ${HOME}/.rbenv ] ; then
 fi
 # ---------- rbenv End --------------------------------------------------------
 
+# ---------- vifm -------------------------------------------------------------
+vicd()
+{
+    local dst="$(command vifm --choose-dir - "$@")"
+    if [ -z "$dst" ]; then
+        echo 'Directory picking cancelled/failed'
+        return 1
+    fi
+    cd "$dst"
+}
+# ---------- vifm End ---------------------------------------------------------

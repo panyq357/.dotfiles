@@ -27,16 +27,12 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Swapping buffers.
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
-nnoremap <silent> [B :bfirst<CR>
-nnoremap <silent> ]B :blast<CR>
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
 
 " Prevent comma <C-c> combination lost comma
 inoremap <C-c> <Esc>
 
-nnoremap <C-N> :bnext<CR>
-nnoremap <C-P> :bprev<CR>
 " ----------------------------------
 
 " ---------- vim-plug ----------
@@ -114,14 +110,6 @@ let g:rainbow_active = 1
 " vim-buftabline
 let g:buftabline_indicators = 1
 
-" ---------- Relative Path Settings ----------
-" function AddCurrentFileDirToPath()
-"     let $cfd = expand("%s:h")
-"     setlocal path+=$cfd
-" endfunction
-" autocmd BufEnter Snakefile,*.smk call AddCurrentFileDirToPath()
-" --------------------------------------------
-
 " ---------- LSP ----------
 if executable('pylsp')
     " pip install python-lsp-server
@@ -129,6 +117,14 @@ if executable('pylsp')
         \ 'name': 'pylsp',
         \ 'cmd': {server_info->['pylsp']},
         \ 'allowlist': ['python'],
+        \ })
+endif
+
+if isdirectory($HOME . glob('/R/*/*/languageserver'))
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'languageserver',
+        \ 'cmd': ['/usr/bin/R', "--slave", "-e", "languageserver::run()"],
+        \ 'allowlist': ['r'],
         \ })
 endif
 
