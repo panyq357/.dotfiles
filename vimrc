@@ -16,6 +16,8 @@ set wildoptions=pum                                   " Display vertical menu.
 
 set mouse=nv                                          " Set mouse
 
+set nostartofline                                     " Save cursor position when switching buffer.
+
 set updatetime=200                                    " Millisecond for vim-gitgutter to refresh.
 
 set directory=${HOME}/.vim/swap//                     " Set swap file dir.
