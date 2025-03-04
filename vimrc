@@ -14,6 +14,10 @@ set wildmenu                                          " Display a menu when doin
 set wildmode=longest:full,full                        " Extend to longest common string, show matches, press <TAB> again to do more completion.
 set wildoptions=pum                                   " Display vertical menu.
 
+set mouse=nv                                          " Set mouse
+
+set updatetime=200                                    " Millisecond for vim-gitgutter to refresh.
+
 set directory=${HOME}/.vim/swap//                     " Set swap file dir.
 call mkdir($HOME . "/.vim/swap", "p", 0700)           " Create ~/.vim/swap in case it does not exists.
 set list listchars=nbsp:!                             " Show nbsp as !
@@ -29,10 +33,10 @@ nnoremap <C-l> <C-w>l
 " Swapping buffers.
 nnoremap <C-N> :bnext<CR>
 nnoremap <C-P> :bprev<CR>
+nnoremap <C-W> :bdelete<CR>
 
 " Prevent comma <C-c> combination lost comma
 inoremap <C-c> <Esc>
-
 " ----------------------------------
 
 " ---------- vim-plug ----------
@@ -41,14 +45,12 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
-Plug 'mattn/emmet-vim'
 Plug 'ap/vim-buftabline'
 Plug 'kshenoy/vim-signature'
-Plug 'tpope/vim-commentary'
+Plug 'airblade/vim-gitgutter'
 
 " Syntax
 Plug 'vim-python/python-syntax'
-Plug 'chr4/nginx.vim'
 Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 Plug 'luochen1990/rainbow'  " Rainbow parentheses.
 Plug 'mechatroner/rainbow_csv'
@@ -73,7 +75,7 @@ call plug#end()
 set et ts=4 sw=0 sts=0 nocin nosi inde= ai                    " Default settings.
 autocmd Filetype *
     \ setlocal et ts=4 sw=0 sts=0 nocin nosi inde= ai         " Override all other indent settings, keep only autoindent.
-autocmd Filetype html,css,javascript,json,markdown,yaml,ruby
+autocmd Filetype html,css,javascript,json,markdown,yaml,ruby,r
     \ setlocal ts=2                                           " Shrink indent width in some languages.
 autocmd FileType make set noet                                " Use TAB in makefile.
 autocmd FileType snakemake setlocal commentstring=#\ %s       " set commentstring for vim-commentary
@@ -82,14 +84,26 @@ autocmd FileType snakemake setlocal commentstring=#\ %s       " set commentstrin
 " ---------- gruvbox ----------
 set termguicolors background=dark
 " set cursorline
-colorscheme gruvbox
+silent! colorscheme gruvbox
 " -----------------------------
 
 " ---------- vim-signature ----------
 " Use ':hi Normal' to get default background color
-highlight SignColumn term=underline ctermfg=243 ctermbg=235 guifg=#7c6f64 guibg=#282828
-highlight SignatureMarkText term=underline ctermfg=243 ctermbg=235 guifg=#7c6f64 guibg=#282828
+" highlight SignColumn term=underline ctermfg=243 ctermbg=235 guifg=#7c6f64 guibg=#282828
+highlight SignColumn        term=underline ctermfg=223 ctermbg=235 guifg=#ebdbb2 guibg=#282828
+highlight SignatureMarkText term=underline ctermfg=223 ctermbg=235 guifg=#ebdbb2 guibg=#282828
+
+" Compatible with vim-gitgutter
+let g:SignatureMarkTextHLDynamic = 1
 " -----------------------------------
+
+" ---------- vim-gitgutter ----------
+let g:gitgutter_preview_win_location = "bel"
+highlight GitGutterAdd    guifg=#009900 ctermfg=2 ctermbg=235 guibg=#282828
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3 ctermbg=235 guibg=#282828
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1 ctermbg=235 guibg=#282828
+" -----------------------------------
+
 
 " ---------- vim-oscyank ----------
 " automatically yank to clipbroad, see ':help event-varaible'.
@@ -128,9 +142,11 @@ if isdirectory($HOME . glob('/R/*/*/languageserver'))
         \ })
 endif
 
-let g:lsp_signature_help_enabled = 0
-let g:lsp_completion_documentation_enabled = 0
-let g:lsp_diagnostics_enabled = 0
+let g:lsp_signature_help_enabled = 0            " Document float when typing arguments inside function.
+let g:lsp_completion_documentation_enabled = 0  " Document float when doing completion.
+let g:lsp_diagnostics_enabled = 0               " Enable LSP code diagnostics.
+let g:lsp_diagnostics_echo_cursor = 1           " LSP diagnostics shows down in status line.
+let g:lsp_diagnostics_virtual_text_enabled = 0  " Disable diagnostics virtual text shows in problem line.
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
