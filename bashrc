@@ -21,6 +21,7 @@ path_arr=(
     "${HOME}/.local/bin"
     "${HOME}/Tools/bin"
     "${HOME}/Tools/nvim/bin"
+    "${HOME}/Tools/cling-build/bin"
     "${HOME}/Tools/sratoolkit/bin"
     "${HOME}/Tools/ensembl-vep"
     "${HOME}/Tools/annovar"

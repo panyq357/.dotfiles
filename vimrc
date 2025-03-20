@@ -48,8 +48,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'ap/vim-buftabline'
-Plug 'kshenoy/vim-signature'
-Plug 'airblade/vim-gitgutter'
 
 " Syntax
 Plug 'vim-python/python-syntax'
@@ -88,24 +86,6 @@ set termguicolors background=dark
 " set cursorline
 silent! colorscheme gruvbox
 " -----------------------------
-
-" ---------- vim-signature ----------
-" Use ':hi Normal' to get default background color
-" highlight SignColumn term=underline ctermfg=243 ctermbg=235 guifg=#7c6f64 guibg=#282828
-highlight SignColumn        term=underline ctermfg=223 ctermbg=235 guifg=#ebdbb2 guibg=#282828
-highlight SignatureMarkText term=underline ctermfg=223 ctermbg=235 guifg=#ebdbb2 guibg=#282828
-
-" Compatible with vim-gitgutter
-let g:SignatureMarkTextHLDynamic = 1
-" -----------------------------------
-
-" ---------- vim-gitgutter ----------
-let g:gitgutter_preview_win_location = "bel"
-highlight GitGutterAdd    guifg=#009900 ctermfg=2 ctermbg=235 guibg=#282828
-highlight GitGutterChange guifg=#bbbb00 ctermfg=3 ctermbg=235 guibg=#282828
-highlight GitGutterDelete guifg=#ff2222 ctermfg=1 ctermbg=235 guibg=#282828
-" -----------------------------------
-
 
 " ---------- vim-oscyank ----------
 " automatically yank to clipbroad, see ':help event-varaible'.
