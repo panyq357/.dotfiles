@@ -48,10 +48,14 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'ap/vim-buftabline'
+Plug 'romainl/vim-cool'
+Plug 'AndrewRadev/linediff.vim'
+Plug 'tpope/vim-commentary'
 
 " Syntax
 Plug 'vim-python/python-syntax'
 Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
+Plug 'nextflow-io/vim-language-nextflow'
 Plug 'luochen1990/rainbow'  " Rainbow parentheses.
 Plug 'mechatroner/rainbow_csv'
 
@@ -121,6 +125,18 @@ if isdirectory($HOME . glob('/R/*/*/languageserver'))
         \ 'name': 'languageserver',
         \ 'cmd': ['/usr/bin/R', "--slave", "-e", "languageserver::run()"],
         \ 'allowlist': ['r'],
+        \ })
+endif
+
+if executable('jdtls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'jdtls',
+        \ 'cmd': {server_info -> [
+        \   expand('~/Tools/jdt-language-server/bin/jdtls'),
+        \   '-configuration', expand('~/.cache/jdtls-config'),
+        \   '-data', expand('~/.cache/jdtls-workspace')
+        \ ]},
+        \ 'whitelist': ['java'],
         \ })
 endif
 
