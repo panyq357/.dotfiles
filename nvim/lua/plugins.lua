@@ -7,9 +7,10 @@ vim.call("plug#begin")
   Plug("mechatroner/rainbow_csv")
   Plug("vim-python/python-syntax")
   Plug("airblade/vim-gitgutter")
+  Plug('romainl/vim-cool')
   Plug("snakemake/snakemake", {rtp = "misc/vim"})
   Plug('akinsho/bufferline.nvim', { tag= '*' })
-  Plug('mfussenegger/nvim-dap')
+  Plug('neovim/nvim-lspconfig')
 vim.call("plug#end")
 
 
@@ -46,3 +47,8 @@ vim.g.python_highlight_all = 1
 -- vim-gitgutter
 vim.api.nvim_set_hl(0, "SignColumn", {})  -- remove SignColumn background.
 
+
+-- lsp
+vim.lsp.enable('r_language_server')
+vim.lsp.enable('pylsp')
+vim.lsp.enable('jdtls')

@@ -2,7 +2,7 @@
 export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
 # ---------- Prompt End -------------------------------------------------------
 
-export EDITOR=vim
+export EDITOR=nvim
 export BROWSER=msedge
 
 # ---------- Alias ------------------------------------------------------------
@@ -31,6 +31,8 @@ path_arr=(
     "${HOME}/Tools/node/bin"
     "${HOME}/Tools/tassel"
     "${HOME}/Tools/SPAdes/bin"
+    "${HOME}/Tools/apache-maven/bin"
+    "${HOME}/Tools/jdt-language-server/bin"
     "/usr/local/go/bin"
 )
 
@@ -149,3 +151,6 @@ vicd()
     cd "$dst"
 }
 # ---------- vifm End ---------------------------------------------------------
+
+# ---------- Java -------------------------------------------------------------
+export JAVA_HOME="/usr/lib/jvm/jdk-21.0.8-oracle-x64"
