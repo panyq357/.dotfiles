@@ -14,8 +14,6 @@ vim.call("plug#begin")
 vim.call("plug#end")
 
 
-
-
 -- gruvbox.nvim
 vim.o.background = "dark"
 vim.cmd("silent! colorscheme gruvbox")
@@ -46,9 +44,3 @@ vim.g.python_highlight_all = 1
 
 -- vim-gitgutter
 vim.api.nvim_set_hl(0, "SignColumn", {})  -- remove SignColumn background.
-
-
--- lsp
-vim.lsp.enable('r_language_server')
-vim.lsp.enable('pylsp')
-vim.lsp.enable('jdtls')
