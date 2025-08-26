@@ -21,3 +21,5 @@ vim.opt.updatetime = 200                      -- Millisecond for vim-gitgutter t
 vim.opt.list = true
 vim.opt.listchars = "nbsp:!"                  -- Show nbsp as "!"
 vim.opt.guicursor = "a:block"                 -- Set cursor in all mode to be block shape.
+
+vim.opt.signcolumn = "yes"                    -- Always show signcolumn.

@@ -1,127 +1,49 @@
-# ---------- Homebrew ---------------------------------------------------------
-HOMEBREW_REPOSITORY="/usr/local/Homebrew"
-if [[ -e $HOMEBREW_REPOSITORY ]] && [[ *"$PATH"* != *"${HOMEBREW_REPOSITORY}/bin"* ]] ; then
-    eval "$(${HOMEBREW_REPOSITORY}/bin/brew shellenv)"
+# Use starship theme.
+if command -v starship >/dev/null 2>&1; then
+    eval "$(starship init zsh)"
 fi
-# ---------- Homebrew End -----------------------------------------------------
 
-zstyle :compinstall filename "${HOME}/.zshrc"               #
-autoload -Uz compinit                                       # lines added by compinstall
-compinit                                                    #
+# Use emacs keybindings even if our EDITOR is set to vi
+bindkey -e
 
-bindkey -e                                                  # use EMACS key binding
-setopt share_history
+export EDITOR=nvim
 
-autoload edit-command-line                                  #
-zle -N edit-command-line                                    # use CTRL-X_CTRL-E to edit command in $EDITOR
-bindkey '^x^e' edit-command-line                            #
+# ---------- History ----------------------------------------------------------
+setopt histignorealldups sharehistory
 
-export HISTFILE=~/.histfile
-export HISTSIZE=1000
-export SAVEHIST=1000
+# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+HISTSIZE=1000
+SAVEHIST=1000
+HISTFILE=~/.zsh_history
 
-export TERM="xterm-256color"
-export LANG="en_US.UTF-8"
-export EDITOR="${HOMEBREW_PREFIX}/bin/vim"                       # use homebrew vim (not /usr/bin/vim)
+# ---------- History End ------------------------------------------------------
 
-alias ls="ls --color=auto"
-alias ll="ls -lh --color=auto"
-alias tree="tree -NC"                                       # Make tree display chinese charactor.
-alias tar="tar --no-mac-metadata --exclude '**/.DS_Store'"  # Exclude ._* AppleDouble files and .DS_Store files.
+# ---------- Completion -------------------------------------------------------
+# Use modern completion system
+autoload -Uz compinit
+compinit
 
-# ---------- zplug & plugin management ----------------------------------------
-export ZPLUG_HOME=${HOMEBREW_PREFIX}/opt/zplug
-source $ZPLUG_HOME/init.zsh
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=2
+eval "$(dircolors -b)"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
 
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+# ---------- Completion End ---------------------------------------------------
 
-zplug load
-# ---------- zplug & plugin management End ------------------------------------
-
-
-# ---------- PATH -------------------------------------------------------------
-path_arr=(
-    "${HOME}/.local/bin"
-    "${HOME}/Tools/bin"
-    "${HOMEBREW_PREFIX}/opt/ruby/bin"
-    "${HOMEBREW_PREFIX}/lib/ruby/gems/3.3.0/bin"
-)
-
-for p in ${path_arr[@]} ; do  # lower case "path" is a reserved variable, don't use it.
-    if [[ "$PATH" != *"$path"* ]]; then
-        export PATH="${p}:${PATH}"
-    fi
-done
-
-# ---------- PATH End ---------------------------------------------------------
-
-# ---------- Ruby -------------------------------------------------------------
-export LDFLAGS="-L${HOMEBREW_PREFIX}/opt/ruby/lib"
-export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/ruby/include"
-# ---------- Ruby End ---------------------------------------------------------
-
-# ---------- Proxy ------------------------------------------------------------
-proxy_url="http://127.0.0.1:1087"
-function proxy() {
-    if [[ $1 == "off" ]] ; then
-        unset no_proxy
-        unset http_proxy
-        unset https_proxy
-        unset ftp_proxy
-        unset rsync_proxy
-        echo -e "PROXY OFF"
-    elif [[ $1 == "on" ]] ; then
-        export no_proxy="localhost,127.0.0.1"
-        export http_proxy=${proxy_url}
-        export https_proxy=${proxy_url}
-        export ftp_proxy=${proxy_url}
-        export rsync_proxy=${proxy_url}
-        echo -e "PROXY ON"
-    fi
-}
-function _proxy() {
-    compadd on off
-}
-compdef _proxy proxy
-# ---------- Proxy End --------------------------------------------------------
-
-# ---------- Conda ------------------------------------------------------------
-conda_dir="${HOME}/Tools/miniforge3"
-function ca() {
-    source ${conda_dir}/bin/activate $1
-}
-# ---------- Conda End ---------------------------------------------------------
-
-# ---------- NNN --------------------------------------------------------------
-n ()
-{
-    # Block nesting of nnn in subshells
-    [ "${NNNLVL:-0}" -eq 0 ] || {
-        echo "nnn is already running"
-        return
-    }
-
-    # The behaviour is set to cd on quit (nnn checks if NNN_TMPFILE is set)
-    # If NNN_TMPFILE is set to a custom path, it must be exported for nnn to
-    # see. To cd on quit only on ^G, remove the "export" and make sure not to
-    # use a custom path, i.e. set NNN_TMPFILE *exactly* as follows:
-    #      NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-
-    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
-    # stty start undef
-    # stty stop undef
-    # stty lwrap undef
-    # stty lnext undef
-
-    # The command builtin allows one to alias nnn to n, if desired, without
-    # making an infinitely recursive alias
-    command nnn "$@"
-
-    [ ! -f "$NNN_TMPFILE" ] || {
-        . "$NNN_TMPFILE"
-        rm -f "$NNN_TMPFILE" > /dev/null
-    }
-}
-# ---------- NNN End ----------------------------------------------------------
+source "${HOME}/.dotfiles/rc-commons/nnn.bash"
+source "${HOME}/.dotfiles/rc-commons/alias.bash"
+source "${HOME}/.dotfiles/rc-commons/path.bash"
+source "${HOME}/.dotfiles/rc-commons/conda.bash"
+source "${HOME}/.dotfiles/rc-commons/proxy.bash"

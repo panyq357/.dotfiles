@@ -1,0 +1,28 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$conda\
+$python\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$line_break\
+$character
+"""
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[conda]
+ignore_base = false
+detect_env_vars = ["CONDA_DEFAULT_ENV"]
+format = 'via [$symbol$environment]($style) '

@@ -10,13 +10,14 @@ symlinks = {
         "tmux.conf": "~/.tmux.conf",
         "condarc": "~/.condarc",
         "Rprofile": "~/.Rprofile",
-        "gitconfig": "~/.gitconfig"
+        "gitconfig": "~/.gitconfig",
+        "starship.toml": "~/.config/starship.toml"
     },
     "macOS": {
-        "zshrc": "~/.zshrc"
+        "zshrc-mac": "~/.zshrc"
     },
     "Linux": {
-        "bashrc": "~/.bashrc"
+        "zshrc": "~/.zshrc"
     }
 }
 

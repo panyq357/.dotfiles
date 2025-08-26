@@ -11,6 +11,9 @@ vim.call("plug#begin")
   Plug("snakemake/snakemake", {rtp = "misc/vim"})
   Plug('akinsho/bufferline.nvim', { tag= '*' })
   Plug('neovim/nvim-lspconfig')
+  Plug('mcchrish/nnn.vim')
+  Plug('junegunn/fzf')
+  Plug('junegunn/fzf.vim')
 vim.call("plug#end")
 
 
@@ -44,3 +47,13 @@ vim.g.python_highlight_all = 1
 
 -- vim-gitgutter
 vim.api.nvim_set_hl(0, "SignColumn", {})  -- remove SignColumn background.
+
+-- nnn.vim
+-- Remove NnnExplorer command after entering vim (after plugin loading).
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.exists(":NnnExplorer") == 2 then
+      vim.cmd("delcommand NnnExplorer")
+    end
+  end,
+})

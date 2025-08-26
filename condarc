@@ -10,3 +10,4 @@ custom_channels:
   conda-forge: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
   bioconda: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
 auto_activate_base: false
+changeps1: false  # Disable (base) prefix in terminal.
