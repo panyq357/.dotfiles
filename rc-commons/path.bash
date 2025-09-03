@@ -12,6 +12,7 @@ path_arr=(
     "${HOME}/tools/sratoolkit.3.2.1-ubuntu64/bin"
     "${HOME}/tools/obsutil_linux_amd64_5.7.3"
     "${HOME}/tools/minimap2-2.30_x64-linux"
+    "${HOME}/tools/ucsc-utilities"
 
     "${HOME}/repos/ensembl-vep"
     "${HOME}/repos/tassel-5-standalone"

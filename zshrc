@@ -7,6 +7,7 @@ fi
 bindkey -e
 
 export EDITOR=nvim
+export BROWSER=msedge
 
 # ---------- History ----------------------------------------------------------
 setopt histignorealldups sharehistory
@@ -42,8 +43,6 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # ---------- Completion End ---------------------------------------------------
 
-source "${HOME}/.dotfiles/rc-commons/nnn.bash"
-source "${HOME}/.dotfiles/rc-commons/alias.bash"
-source "${HOME}/.dotfiles/rc-commons/path.bash"
-source "${HOME}/.dotfiles/rc-commons/conda.bash"
-source "${HOME}/.dotfiles/rc-commons/proxy.bash"
+for f in $(ls ${HOME}/.dotfiles/rc-commons/*); do
+    source $f
+done

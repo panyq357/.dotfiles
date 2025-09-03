@@ -21,26 +21,26 @@ vim.api.nvim_create_autocmd("Filetype", {
     vim.opt_local.smartindent = false
     vim.opt_local.indentexpr = ""
     vim.opt_local.autoindent = true
-  end
+  end,
 })
 
 vim.api.nvim_create_autocmd("Filetype", {
-  pattern = {"html", "css", "javascript", "yaml", "json", "markdown", "yaml", "ruby", "r", "lua"},
+  pattern = { "html", "css", "javascript", "yaml", "json", "markdown", "yaml", "ruby", "r", "lua" },
   callback = function()
     vim.opt_local.tabstop = 2
-  end
+  end,
 })
 
 vim.api.nvim_create_autocmd("Filetype", {
-  pattern = {"make"},
+  pattern = { "make" },
   callback = function()
     vim.opt_local.expandtab = false
-  end
+  end,
 })
 
 vim.api.nvim_create_autocmd("Filetype", {
-  pattern = {"snakemake"},
+  pattern = { "snakemake" },
   callback = function()
     vim.opt_local.commentstring = "# %s"
-  end
+  end,
 })

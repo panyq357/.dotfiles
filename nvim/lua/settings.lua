@@ -1,3 +1,4 @@
+-- stylua: ignore start
 vim.opt.compatible = false                    -- Stop vim from act like vi.
 vim.opt.number = true                         -- Show line number on the left.
 vim.opt.ruler = true                          -- Show cursor position in status line
@@ -23,3 +24,4 @@ vim.opt.listchars = "nbsp:!"                  -- Show nbsp as "!"
 vim.opt.guicursor = "a:block"                 -- Set cursor in all mode to be block shape.
 
 vim.opt.signcolumn = "yes"                    -- Always show signcolumn.
+-- stylua: ignore end

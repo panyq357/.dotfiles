@@ -1,5 +1,5 @@
 -- Disable nvim clipboard passing to tmux.
-vim.opt.clipboard = ''
+vim.opt.clipboard = ""
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -10,5 +10,5 @@ vim.api.nvim_create_autocmd("TextYankPost", {
       local osc52_fun = require("vim.ui.clipboard.osc52").copy(event.regname)
       osc52_fun(event.regcontents)
     end
-  end
+  end,
 })
