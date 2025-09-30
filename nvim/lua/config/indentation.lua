@@ -44,3 +44,4 @@ vim.api.nvim_create_autocmd("Filetype", {
     vim.opt_local.commentstring = "# %s"
   end,
 })
+
