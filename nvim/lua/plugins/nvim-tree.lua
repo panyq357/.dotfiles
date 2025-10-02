@@ -59,7 +59,7 @@ return {
           opts("Change to working directory")
         )
         vim.keymap.set("n", "I", api.tree.toggle_hidden_filter, opts("Toggle Filter: Dotfiles"))
-        vim.keymap.set("n", "n", function()
+        vim.keymap.set("n", "N", function()
 
           local node = api.tree.get_node_under_cursor()
           local path

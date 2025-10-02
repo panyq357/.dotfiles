@@ -1,5 +1,5 @@
 return {
-  { "romainl/vim-cool" },
+  { "romainl/vim-cool" },  -- automaticly :noh after moving cusor.
   {
     "vim-python/python-syntax",
     config = function()
@@ -18,8 +18,6 @@ return {
   },
   { "mechatroner/rainbow_csv" },
   { "mcchrish/nnn.vim" },
-  { "junegunn/fzf" },
-  { "junegunn/fzf.vim" },
   {
     "norcalli/nvim-colorizer.lua",
     config = function()
