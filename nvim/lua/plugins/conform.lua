@@ -1,11 +1,13 @@
 return {
   "stevearc/conform.nvim",
-  opts = {
-    formatters_by_ft = {
-      python = { "autopep8" },
-    }
-  },
   config = function()
+
+    require("conform").setup {
+      formatters_by_ft = {
+        python = { "autopep8" },
+      }
+    }
+
     -- Copied from <https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#format-command>
     vim.api.nvim_create_user_command("Format", function(args)
       local range = nil
