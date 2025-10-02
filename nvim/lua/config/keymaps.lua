@@ -42,7 +42,7 @@ local save_before_close_buffer = function()
     elseif choice == "c" then
       vim.api.nvim_echo({{"Cancelled", "None"}}, false, {})
     else
-      force_close_buffer()
+      return
     end
   else
     force_close_buffer()

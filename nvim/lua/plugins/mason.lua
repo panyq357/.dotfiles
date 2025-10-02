@@ -9,7 +9,7 @@ return {
   {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
-      "mason-org/mason.nvim"
+      "mason-org/mason.nvim",
     },
     config = function()
       -- Configure a server via `vim.lsp.config()` or `{after/}lsp/lua_ls.lua`
@@ -26,6 +26,9 @@ return {
             }
           }
         }
+      })
+      vim.lsp.config('emmet_language_server', {
+        filetypes = { "html", "css", "javascript", "javascriptreact", "typescriptreact" }
       })
 
       require("mason").setup()
