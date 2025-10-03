@@ -43,6 +43,8 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # ---------- Completion End ---------------------------------------------------
 
-for f in $(ls ${HOME}/.dotfiles/rc-commons/*); do
-    source $f
+for file in $(ls ${HOME}/.dotfiles/rc-commons/*); do
+    
+    source $file
 done
+

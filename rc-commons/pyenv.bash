@@ -1,8 +1,12 @@
-if [ -d ${HOME}/.pyenv ] ; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+
+if [ -d $PYENV_ROOT ] ; then
+    # Lazy loading pyenv.
+    pyenv() {
+        [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+        eval "$(pyenv init -)"
+        # After loading above two, pyenv command have been replaced.
+        pyenv $@
+    }
 fi
 
-# Bind r to radian in pyenv global version.
-alias r="$(pyenv which radian) --restore-data"
