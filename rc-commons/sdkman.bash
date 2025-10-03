@@ -2,11 +2,14 @@
 
 export SDKMAN_DIR="$HOME/.sdkman"
 
-# Lazy loading sdk command.
 if [ -d "$SDKMAN_DIR" ] ; then
-    sdk() {
-        [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ] && . "$SDKMAN_DIR/bin/sdkman-init.sh"
-        # After source above, sdk command have been replaced.
+
+    export JAVA_HOME="$SDKMAN_DIR/candidates/java/current"
+    export PATH="$SDKMAN_DIR/candidates/java/current/bin:$PATH"
+
+    # Lazy loading SDKMAN!
+    sdk () {
+        . "$SDKMAN_DIR/bin/sdkman-init.sh"
         sdk $@
     }
 fi

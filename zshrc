@@ -3,7 +3,7 @@ if command -v starship >/dev/null 2>&1; then
     eval "$(starship init zsh)"
 fi
 
-# Use emacs keybindings even if our EDITOR is set to vi
+# Use emacs keybindings even if EDITOR is set to vi
 bindkey -e
 
 export EDITOR=nvim
@@ -44,7 +44,8 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # ---------- Completion End ---------------------------------------------------
 
 for file in $(ls ${HOME}/.dotfiles/rc-commons/*); do
-    
+    # t1=$(date +%s%3N)
     source $file
+    # t2=$(date +%s%3N)
+    # echo $file $((t2-t1)) ms
 done
-

@@ -1,12 +1,13 @@
 export PYENV_ROOT="$HOME/.pyenv"
 
 if [ -d $PYENV_ROOT ] ; then
+
+    export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"
+
     # Lazy loading pyenv.
     pyenv() {
-        [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+        unset -f pyenv
         eval "$(pyenv init -)"
-        # After loading above two, pyenv command have been replaced.
-        pyenv $@
+        command pyenv $@
     }
 fi
-
