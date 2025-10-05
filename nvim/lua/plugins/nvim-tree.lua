@@ -45,6 +45,17 @@ return {
         vim.keymap.set("n", "d", api.fs.trash, opts("Trash"))
         vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
         vim.keymap.set("n", "o", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "x",
+          function()
+            local node = api.tree.get_node_under_cursor()
+            if (node.open) then
+              api.node.collapse(node)
+            else
+              api.node.collapse(node.parent)
+            end
+          end,
+          opts("Collapse folder")
+        )
         vim.keymap.set("n", "u",
           function()
             api.tree.change_root_to_parent(api.tree.get_node_under_cursor())
