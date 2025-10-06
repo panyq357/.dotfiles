@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd("Filetype", {
 })
 
 vim.api.nvim_create_autocmd("Filetype", {
-  pattern = { "html", "css", "javascript", "yaml", "json", "markdown", "yaml", "ruby", "r", "lua" },
+  pattern = { "html", "css", "javascript", "javascriptreact", "yaml", "json", "markdown", "yaml", "ruby", "r", "lua" },
   callback = function()
     vim.opt_local.tabstop = 2
   end,
