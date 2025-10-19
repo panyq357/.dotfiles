@@ -45,9 +45,7 @@ local save_before_close_buffer = function()
   else
     force_close_buffer()
   end
-
 end
-
 vim.keymap.set("n", "<C-w>", save_before_close_buffer, { noremap = true, silent = true, nowait = true })
 
 -- Prevent comma <C-c> combination lost comma. In this case, change the behavior of <C-c> in insert mode to act as <Esc>
@@ -64,3 +62,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
   end,
 })
+
+-- Completion of file path relative to current file.
+local function expand_current_dir_complete()
+
+  local old_dir = vim.fn.getcwd()
+  local new_dir = vim.fn.expand('%:p:h')
+
+  vim.cmd('lcd ' .. vim.fn.fnameescape(new_dir))
+
+  vim.api.nvim_input("<C-X><C-F>")
+
+  -- Delay lcd back untile completion complete.
+  vim.schedule(function()
+    vim.cmd('lcd ' .. vim.fn.fnameescape(old_dir))
+  end)
+end
+vim.keymap.set('i', '<C-X><C-R>', expand_current_dir_complete, { noremap = true, silent = true })
