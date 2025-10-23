@@ -25,3 +25,6 @@ vim.opt.guicursor = "a:block"                 -- Set cursor in all mode to be bl
 vim.opt.signcolumn = "yes"                    -- Always show signcolumn.
 vim.opt.termguicolors = true                  -- Enable 24-bit True Color.
 vim.opt.fillchars:append({ eob = " " })       -- Replace end of file `~` symbol to space.
+
+vim.g.omni_sql_no_default_maps = 1            -- Prevent autoload sqlcomplete.vim
+

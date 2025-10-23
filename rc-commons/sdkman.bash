@@ -4,8 +4,21 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 if [ -d "$SDKMAN_DIR" ] ; then
 
-    export JAVA_HOME="$SDKMAN_DIR/candidates/java/current"
-    export PATH="$SDKMAN_DIR/candidates/java/current/bin:$PATH"
+    java_home_path="$SDKMAN_DIR/candidates/java/current"
+
+    if [ -e $java_home_path ] ; then
+        export JAVA_HOME=$java_home_path
+    fi
+
+    java_bin_path="$SDKMAN_DIR/candidates/java/current/bin"
+    maven_bin_path="$SDKMAN_DIR/candidates/maven/current/bin"
+
+    if [ -e $java_bin_path  ] ; then
+        export PATH="$java_bin_path:$PATH"
+    fi
+    if [ -e $maven_bin_path ] ; then
+        export PATH="$maven_bin_path:$PATH"
+    fi
 
     # Lazy loading SDKMAN!
     sdk () {
