@@ -69,6 +69,7 @@ return {
           vim.cmd("NnnPicker " .. path)
         end
 
+        -- Set keymaps only valid inside nvim-tree buffer here.
         vim.keymap.set("n", "a", api.fs.create, opts("Create file or directory"))
         vim.keymap.set("n", "d", api.fs.trash, opts("Trash"))
         vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
@@ -80,8 +81,17 @@ return {
         vim.keymap.set("n", "I", api.tree.toggle_hidden_filter, opts("Toggle Filter: Dotfiles"))
         vim.keymap.set("n", "N", call_nnn, opts("Open nnn here"))
 
+        -- Restore <C-w> function to default.
+        vim.keymap.set("n", "<C-w>", "<C-w>", opts("Restore <C-w> function"))
+
+        -- Prevent <C-p> and <C-n> inside nvim-tree blinking.
+        vim.keymap.set("n", "<C-n>", ":wincmd w<CR>:bnext<CR>", opts("Swap to file buffer first, then bnext"))
+        vim.keymap.set("n", "<C-p>", ":wincmd w<CR>:bprev<CR>", opts("Swap to file buffer first, then bprev"))
+
       end
     }
-    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+
+    -- Set keymaps valid globally here.
+    vim.keymap.set("n", "<leader>e", ":NvimTreeFindFileToggle<CR>", { noremap = true, silent = true })
   end
 }
