@@ -89,6 +89,20 @@ return {
         vim.keymap.set("n", "<C-n>", ":wincmd w<CR>:bnext<CR>", opts("Swap to file buffer first, then bnext"))
         vim.keymap.set("n", "<C-p>", ":wincmd w<CR>:bprev<CR>", opts("Swap to file buffer first, then bprev"))
 
+
+        -- Make nvim-tree can remember width after drag border using mouse.
+        vim.api.nvim_create_autocmd({"VimResized", "WinScrolled", "WinEnter"}, {
+          callback = function()
+            local view = require("nvim-tree.view")
+            if view.is_visible() then
+              local winnr = view.get_winnr()
+              if winnr then
+                local width = vim.api.nvim_win_get_width(winnr)
+                vim.cmd("NvimTreeResize " .. width)
+              end
+            end
+          end,
+        })
       end
     }
 
