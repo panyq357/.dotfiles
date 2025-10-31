@@ -31,7 +31,8 @@ return {
             -- },
           },
           git_placement = "before"
-        }
+        },
+        group_empty = true  -- Collapse empty dirs to one row.
       },
       on_attach = function(bufnr)
 

@@ -1,21 +1,5 @@
 return {
   { "romainl/vim-cool" },  -- automaticly :noh after moving cusor.
-  {
-    "vim-python/python-syntax",
-    config = function()
-      vim.g.python_highlight_all = 1
-    end
-  },
-  {
-    "snakemake/snakemake",
-    ft = "snakemake",
-    config = function(plugin)
-      vim.opt.rtp:append(plugin.dir .. "/misc/vim")
-    end,
-    init = function(plugin)
-      require("lazy.core.loader").ftdetect(plugin.dir .. "/misc/vim")
-    end,
-  },
   { "mechatroner/rainbow_csv" },
   { "mcchrish/nnn.vim" },
   {

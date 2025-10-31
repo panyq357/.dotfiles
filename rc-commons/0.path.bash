@@ -8,8 +8,8 @@ path_arr=(
     "${HOME}/tools/obsutil_linux_amd64_5.7.3"
 
     "${HOME}/tools/STAR_2.7.11b/Linux_x86_64_static"
-    "${HOME}/tools/meme-5.5.8/build/bin"
-    "${HOME}/tools/meme-5.5.8/build/libexec/meme-5.5.8"
+    "${HOME}/tools/meme-5.5.8/bin"
+    "${HOME}/tools/meme-5.5.8/libexec/meme-5.5.8"
     "${HOME}/tools/annovar"
     "${HOME}/tools/sratoolkit.3.2.1-ubuntu64/bin"
     "${HOME}/tools/minimap2-2.30_x64-linux"
