@@ -2,8 +2,43 @@ snippet sout
 System.out.println($1);
 endsnippet
 
+
 snippet psvm
 public static void main(String[] args) {
+    $1
+}
+endsnippet
+
+
+global !p
+import vim
+import re
+
+from pathlib import Path
+
+fullpath = vim.current.buffer.name
+
+# e.g. "com/example/app/config/DruidConfig.java"
+path = Path(re.match(".*/src/main/java/(.*)", fullpath).group(1))
+
+package = str(path.parent).replace("/", ".")
+
+name = path.stem
+endglobal
+
+
+snippet class
+package `!p snip.rv = package`;
+
+public class `!p snip.rv = name` {
+    $1
+}
+endsnippet
+
+snippet interface
+package `!p snip.rv = package`;
+
+public interface `!p snip.rv = name` {
     $1
 }
 endsnippet
