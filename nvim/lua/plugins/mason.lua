@@ -12,7 +12,6 @@ return {
       "mason-org/mason.nvim",
     },
     config = function()
-      -- Configure a server via `vim.lsp.config()` or `{after/}lsp/lua_ls.lua`
       vim.lsp.config('lua_ls', {
         settings = {
           Lua = {
@@ -23,18 +22,25 @@ return {
               globals = {
                 'vim'
               }
-            }
+            },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true),
+              checkThirdParty = false,
+            },
+            telemetry = {
+              enable = false,
+            },
           }
         }
       })
-      vim.lsp.config('emmet_language_server', {
-        filetypes = { "html", "css", "javascript", "javascriptreact", "typescriptreact" }
-      })
 
       require("mason").setup()
+
       -- Note: `nvim-lspconfig` needs to be in 'runtimepath' by the time you set up mason-lspconfig.nvim
       require("mason-lspconfig").setup {
-        ensure_installed = { "lua_ls" }
+        ensure_installed = {
+          "lua_ls",
+        }
       }
     end,
   }

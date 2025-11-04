@@ -34,9 +34,39 @@ local config = {
   --
   -- If you don't plan on any eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = {
-      "/home/panyq/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-0.53.2.jar"
-    }
+    bundles = {}
   },
 }
+
+-- This bundles definition is the same as in the previous section (java-debug installation)
+local bundles = {
+  vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar")
+}
+
+
+-- This is the new part
+local java_test_bundles = vim.split(vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/java-test/extension/server/*.jar"), "\n")
+local excluded = {
+  "com.microsoft.java.test.runner-jar-with-dependencies.jar",
+  "jacocoagent.jar",
+}
+for _, java_test_jar in ipairs(java_test_bundles) do
+  local fname = vim.fn.fnamemodify(java_test_jar, ":t")
+  if not vim.tbl_contains(excluded, fname) then
+    table.insert(bundles, java_test_jar)
+  end
+end
+-- End of the new part
+
+
+config['init_options'] = {
+  bundles = bundles
+}
+
+
 require('jdtls').start_or_attach(config)
+
+vim.keymap.set('n', '<leader>jo', require('jdtls').organize_imports, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>jgt', require('jdtls.tests').generate, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>jtn', require'jdtls'.test_nearest_method, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>jtc', require('jdtls').test_class, { noremap = true, silent = true })

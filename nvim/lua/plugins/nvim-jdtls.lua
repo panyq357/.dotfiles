@@ -3,6 +3,6 @@ return {
   dependencies = {
     "mason-org/mason-lspconfig.nvim",
     "mfussenegger/nvim-dap"
-  }
+  },
 }
 
