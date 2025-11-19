@@ -95,13 +95,20 @@ M.open_former_then_close = function(buf_id)
     M.save_before_close(buf_id)
   else
     local buf_index = require("util").index_of(file_buf_ids, buf_id)
-    local former_id
-    if buf_index == 1 then
-      former_id = file_buf_ids[#file_buf_ids]
+
+    local before_close_fn
+    if buf_index == -1 then
+      before_close_fn = function() end
     else
-      former_id = file_buf_ids[buf_index - 1]
+      local former_id
+      if buf_index == 1 then
+        former_id = file_buf_ids[#file_buf_ids]
+      else
+        former_id = file_buf_ids[buf_index - 1]
+      end
+      before_close_fn = function() vim.api.nvim_set_current_buf(former_id) end
     end
-    local before_close_fn = function() vim.api.nvim_set_current_buf(former_id) end
+
     M.save_before_close(buf_id, before_close_fn)
   end
 end
