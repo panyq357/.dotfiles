@@ -29,6 +29,14 @@ return {
     t("}")
   }),
 
+  s("interface", {
+    f(package_line, {}),
+    i(1), t({"", ""}),
+    t("public interface "), f(filename, {}), t(" "), i(2), t({"{", ""}),
+    t("\t"), i(0), t({"", ""}),
+    t("}")
+  }),
+
   s("psvm", {
     t({"public static void main(String[] args) {", "\t"}),
     i(0),

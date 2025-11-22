@@ -77,7 +77,7 @@ return {
         vim.keymap.set("n", "a", api.fs.create, opts("Create file or directory"))
         vim.keymap.set("n", "d", api.fs.trash, opts("Trash"))
         vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
-        vim.keymap.set("n", "<C-r>", function() vim.cmd("NvimTreeRefresh") end, opts("Rename"))
+        vim.keymap.set("n", "<C-r>", function() vim.cmd("NvimTreeRefresh") end, opts("Refresh"))
         vim.keymap.set("n", "o", api.node.open.edit, opts("Open"))
         vim.keymap.set("n", "x", collapse_folder, opts("Collapse folder"))
         vim.keymap.set("n", "u", move_root_up, opts("Move the tree root up one directory"))

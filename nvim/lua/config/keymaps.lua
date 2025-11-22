@@ -1,3 +1,5 @@
+-- Tip: Use `:put =execute('map')` to insert all existing keymap to current file for search.
+
 -- Simplify movement among windows.
 vim.g.mapleader = " "
 
@@ -22,9 +24,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local opts = { buffer = ev.buf }
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   end,
 })
