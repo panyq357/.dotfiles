@@ -1,11 +1,16 @@
 local function rename_under_cursor()
 
   local old_text = vim.fn.expand("<cfile>")
-  local old_path = vim.fn.findfile(old_text)
+  local buffer_dir = vim.fn.expand("%:p:h") .. "/"
+  local old_path = vim.fn.findfile((buffer_dir .. old_text))
+
 
   if old_path == "" then
-    vim.notify("No file under cursor.")
-    return
+    old_path = vim.fn.findfile(old_text)
+    if old_path == "" then
+      vim.notify("No file under cursor.")
+      return
+    end
   end
 
   local path_start_pos, path_end_pos = string.find(old_path, old_text, 1, true)
