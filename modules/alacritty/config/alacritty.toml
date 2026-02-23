@@ -1,0 +1,17 @@
+[general]
+import = [
+    "~/.config/alacritty/colors/gruvbox.toml"
+]
+
+[font]
+normal = { family = "UbuntuMono Nerd Font Mono", style = "Regular" }
+bold = { family = "UbuntuMono Nerd Font Mono", style = "Bold" }
+italic = { family = "UbuntuMono Nerd Font Mono", style = "Italic" }
+size = 14.0
+
+[window]
+dynamic_padding = true
+option_as_alt = "OnlyLeft"
+
+[terminal]
+osc52 = "OnlyCopy"

@@ -1,3 +1,8 @@
+if ! command -v nnn >/dev/null 2>&1; then
+    echo "nnn not found, please install."
+    return 1
+fi
+
 n ()
 {
     # Block nesting of nnn in subshells

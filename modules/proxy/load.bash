@@ -1,6 +1,8 @@
 # Proxy shortcut function.
+
 HOSTIP=127.0.0.1
 PROXY="http://${HOSTIP}:1087"
+
 function proxy() {
     if [[ $1 == "off" ]] ; then
         unset no_proxy

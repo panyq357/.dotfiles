@@ -1,0 +1,26 @@
+source "${HOME}/.path.bash"
+
+load_module() {
+#    t1=$(gdate +%s%3N)
+    source ${HOME}/.dotfiles/modules/${1}/load.*sh
+#    t2=$(gdate +%s%3N)
+#    echo ${1} $((t2 - t1)) ms
+}
+
+load_module powerlevel10k
+
+powerlevel10k_begin
+
+load_module zsh
+load_module homebrew
+load_module locale
+load_module proxy
+load_module nnn
+load_module fzf
+load_module alias_
+load_module conda
+load_module pyenv
+load_module nvm
+load_module sdkman
+
+powerlevel10k_finish

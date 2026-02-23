@@ -15,6 +15,3 @@
 	helper = cache
 [fetch]
 	auto = 1
-[maintenance]
-	auto = 1
-	repo = /mnt/e/Analysis/JS/JS.2025-08-25.dst-RNA-seq-rerun/rnaseq-pipeline
