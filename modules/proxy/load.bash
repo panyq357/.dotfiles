@@ -18,5 +18,12 @@ function proxy() {
         export ftp_proxy=${PROXY}
         export rsync_proxy=${PROXY}
         echo -e "PROXY ON"
+    elif [[ $1 == "status" ]] ; then
+        echo "PROXY STATUS:"
+        echo "- no_proxy=${no_proxy}"
+        echo "- http_proxy=${http_proxy}"
+        echo "- https_proxy=${https_proxy}"
+        echo "- ftp_proxy=${ftp_proxy}"
+        echo "- rsync_proxy=${rsync_proxy}"
     fi
 }

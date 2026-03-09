@@ -1,4 +1,5 @@
 path_arr=(
+    "${HOME}/.local/bin"
     "${HOME}/tools/bin"
 )
 

@@ -4,7 +4,7 @@ return {
   lazy = false,
   build = ":TSUpdate",
   config = function()
-    local languages = { 'javascript', 'python', 'r', 'javascript', 'html', 'css', 'javascriptreact', 'snakemake' }
+    local languages = { 'javascript', 'python', 'r', 'javascript', 'html', 'css', 'snakemake' }
 
     require('nvim-treesitter').install(languages)
 
