@@ -10,3 +10,20 @@ if [ -n "$BASH_VERSION" ]; then
 elif [ -n "$ZSH_VERSION" ]; then
     source <(fzf --zsh)
 fi
+
+# Reload history when first pressing ctrl-P
+function _fzf_history_with_reload() {
+  if [[ $_history_reloaded != 1 ]]; then
+    fc -R
+    # Use this flag variable to store state.
+    _history_reloaded=1
+  fi
+  zle fzf-history-widget
+}
+zle -N _fzf_history_with_reload
+bindkey '^R' _fzf_history_with_reload
+
+# Check ~/.dotfiles/modules/zsh/load.bash for related settings:
+#
+#   - Press Ctrl-P to trigger fc -R.
+#   - Press return to reset _history_reloaded
