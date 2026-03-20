@@ -1,0 +1,4 @@
+font-family = "UbuntuMono Nerd Font Mono"
+macos-option-as-alt = true
+clipboard-read = allow
+clipboard-write = allow
