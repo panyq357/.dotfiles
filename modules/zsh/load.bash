@@ -6,6 +6,17 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
+# Set default editor to nvim.
+command -v nvim >/dev/null && export EDITOR=nvim
+
+# After setting EDITOR to vim/nvim, default bindkey will be set to vim mode.
+# Change back to emacs mode.
+bindkey -e
+
+
+# bindkey "^P" up-history
+# bindkey "^N" down-history
+
 # Share History settings
 # 
 # setopt SHARE_HISTORY

@@ -21,6 +21,8 @@ load_module alias_
 # load_module conda
 # load_module pyenv
 # load_module nvm
+# load_module cargo
+# load_module direnv
 # load_module sdkman
 
 powerlevel10k_finish
