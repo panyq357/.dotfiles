@@ -1,12 +1,12 @@
-link_arr=(
-    conda 
+arr=(
+    zsh
+    tmux
     git
+    conda
     nvim
     r_
-    tmux
-    zsh
 )
 
-for x in ${link_arr[@]}; do
+for x in ${arr[@]}; do
     bash ${HOME}/.dotfiles/modules/${x}/setup.bash
 done
