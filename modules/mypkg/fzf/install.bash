@@ -15,5 +15,6 @@ fi
 
 mkdir fzf-${version}-linux_amd64
 tar -xf "fzf-${version}-linux_amd64.tar.gz" -C fzf-${version}-linux_amd64
+mkdir -p ${HOME}/.local/bin
 ln -s $(realpath fzf-${version}-linux_amd64/fzf) $HOME/.local/bin/fzf
 rm "fzf-${version}-linux_amd64.tar.gz"

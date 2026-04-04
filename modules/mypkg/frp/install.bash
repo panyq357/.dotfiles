@@ -14,3 +14,4 @@ fi
 tar -xf "frp_${version}_linux_amd64.tar.gz"
 ln -s $(realpath "frp_${version}_linux_amd64/frpc") $HOME/.local/bin/frpc
 ln -s $(realpath "frp_${version}_linux_amd64/frps") $HOME/.local/bin/frps
+rm frp_${version}_linux_amd64.tar.gz
