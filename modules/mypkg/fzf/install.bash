@@ -5,12 +5,12 @@ arch=$(arch)
 
 version=$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | grep '"tag_name"' | sed -E 's/.*"tag_name"[^"]+"v([^"]+)".*/\1/')
 
-if [[ "$(uname)" == "Linux" && "${arch}" == "x86_64" ]]; then
+if [[ "${os}" == "Linux" && "${arch}" == "x86_64" ]]; then
   wget "https://github.com/junegunn/fzf/releases/download/v${version}/fzf-${version}-linux_amd64.tar.gz"
-elif [[ "$(uname)" == "Darwin" && "${arch}" == "arm64" ]]; then
+elif [[ "${os}" == "Darwin" && "${arch}" == "arm64" ]]; then
   wget "https://github.com/junegunn/fzf/releases/download/v${version}/fzf-${version}-darwin_arm64.tar.gz"
 else
-  echo "No install method for uname: $(uname), arch: ${arch}."
+  echo "No install method for uname: ${os}, arch: ${arch}."
 fi
 
 mkdir fzf-${version}-linux_amd64

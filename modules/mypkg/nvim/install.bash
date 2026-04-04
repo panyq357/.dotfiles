@@ -6,11 +6,13 @@ arch=$(arch)
 if [[ "$(uname)" == "Linux" && "${arch}" == "x86_64" ]]; then
   wget "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
   tar -xf nvim-linux-x86_64.tar.gz
+  mkdir -p ${HOME}/.local/bin
   ln -s $(realpath nvim-linux-x86_64/bin/nvim) ${HOME}/.local/bin/nvim
   rm nvim-linux-x86_64.tar.gz
 elif [[ "$(uname)" == "Darwin" && "${arch}" == "arm64" ]]; then
   url="https://github.com/neovim/neovim/releases/latest/download/nvim-macos-arm64.tar.gz"
   tar -xf nvim-macos-arm64.tar.gz
+  mkdir -p ${HOME}/.local/bin
   ln -s $(realpath nvim-macos-arm64/bin/nvim) ${HOME}/.local/bin/nvim
   rm nvim-macos-arm64.tar.gz
 else
