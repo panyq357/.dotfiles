@@ -1,7 +1,10 @@
 export NVM_DIR="$HOME/.nvm"
 
 if ! [ -d "$NVM_DIR" ]; then
-    echo "~/.nvm not found, please install."
+    echo "~/.nvm not found, please install with following:"
+    echo ""
+    echo "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | PROFILE=/dev/null bash"
+    echo ""
     return 1
 fi
 
