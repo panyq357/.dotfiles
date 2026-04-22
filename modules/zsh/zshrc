@@ -24,5 +24,6 @@ load_module alias_
 # load_module cargo
 # load_module direnv
 # load_module sdkman
+# load_module rbenv
 
 powerlevel10k_finish
