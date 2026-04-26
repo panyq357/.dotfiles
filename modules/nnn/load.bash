@@ -33,4 +33,10 @@ n ()
         rm -f -- "$NNN_TMPFILE" > /dev/null
     }
 }
-export NNN_TRASH=1
+
+if [ $(uname) = "Darwin" ]; then
+    export NNN_TRASH="trash"
+else
+    export NNN_TRASH=1
+fi
+
