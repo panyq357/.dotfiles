@@ -4,9 +4,18 @@ if [[ $# -gt 0 ]]; then
     cd "$1" || exit 1
 fi
 
-git stash
-git pull
-git stash pop
-git add --all
-git commit -m "rime sync: $(date '+%Y-%m-%d %H:%M:%S')"
-git push
+git fetch
+
+# If remote newer.
+if [[ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]]; then
+    git stash
+    git pull
+    git stash pop
+fi
+
+# If local changed.
+if [[ -n $(git status --porcelain) ]]; then
+    git add --all
+    git commit -m "sync: $(date '+%Y-%m-%d %H:%M:%S')"
+    git push
+fi
