@@ -1,3 +1,4 @@
+-- Install: run `install.packages("languageserver")` in R session.
 vim.lsp.config['r_language_server'] = {
   cmd = { 'R', '--slave', '-e', 'languageserver::run()' },
   filetypes = { 'r' },
@@ -8,6 +9,7 @@ vim.lsp.config['r_language_server'] = {
 }
 vim.lsp.enable('r_language_server')
 
+-- Install: run `npm install -g pyright`.
 vim.lsp.config['pyright'] = {
   cmd =  { 'pyright-langserver', '--stdio' },
   filetypes = { 'python' },
@@ -25,3 +27,13 @@ vim.lsp.config['pyright'] = {
   },
 }
 vim.lsp.enable('pyright')
+
+-- Install: run `npm install -g typescript typescript-language-server`
+vim.lsp.config['ts_ls'] = {
+  cmd = { 'typescript-language-server', '--stdio' },
+  filetypes = { 'typescript', 'javascript', 'typescriptreact', 'javascriptreact' },
+  root_dir = vim.fs.dirname(
+    vim.fs.find({ 'tsconfig.json', 'package.json' }, { upward = true })[1]
+  ),
+}
+vim.lsp.enable('ts_ls')
