@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [[ $# -gt 0 ]]; then
+    cd "$1" || exit 1
+fi
+
+git stash
+git pull
+git stash pop
+git add --all
+git commit -m "rime sync: $(date '+%Y-%m-%d %H:%M:%S')"
+git push
