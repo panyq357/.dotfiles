@@ -25,5 +25,6 @@ load_module alias_
 # load_module direnv
 # load_module sdkman
 # load_module rbenv
+# load_module cpanm
 
 powerlevel10k_finish
