@@ -1,6 +1,7 @@
 $modules = @(
     "powershell",
-    "psmux"
+    "psmux",
+    "clash-verge-rev"
 )
 
 foreach ($x in $modules) {

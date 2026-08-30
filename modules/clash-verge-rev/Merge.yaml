@@ -1,0 +1,41 @@
+# Profile Enhancement Merge Template for Clash Verge
+profile:
+  store-selected: true
+rule-providers:
+  my-domains:
+    type: inline
+    behavior: domain
+    payload:
+    - '+.twitter.com'
+    - '+.twimg.com'
+    - '+.x.com'
+    - '+.googlevideo.com'
+    - '+.ytimg.com'
+    - '+.ggpht.com'
+    - '+.google.co.jp'
+    - '+.youtube.com'
+    - '+.gstatic.com'
+    - '+.googleusercontent.com'
+    - '+.googleapis.com'
+    - '+.google.com'
+    - '+.claudeusercontent.com'
+    - '+.github.com'
+    - '+.githubusercontent.com'
+    - '+.anthropic.com'
+    - '+.claude.ai'
+    - '+.claude.com'
+  my-processes:
+    type: inline
+    behavior: classical
+    payload:
+    - PROCESS-NAME,steamwebhelper.exe
+    - PROCESS-NAME,steam.exe
+    - PROCESS-NAME,claude.exe
+rules:
+- RULE-SET,my-domains,JMS
+- RULE-SET,my-processes,JMS
+dns:
+  respect-rules: true
+  proxy-server-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
